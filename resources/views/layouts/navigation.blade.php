@@ -16,9 +16,10 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
-                @if(Auth::user()->usertype === 'super-admin')
+                <!-- For Super Admin only --->
+                @if(Auth::user()->user_type === 'super-admin')
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
+                    <x-nav-link :href="route('create-account')" :active="request()->routeIs('create-account')">
                         {{ __('Create New Account') }}
                     </x-nav-link>
                 </div>

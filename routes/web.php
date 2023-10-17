@@ -26,7 +26,8 @@ Route::get('/', function () {
 route::get('/home',[HomeController::class,'index'])->middleware('auth')->name('home');
 
 //for super admin only
-route::get('super-admin-post',[SuperAdminController::class,'super-admin-post'])->middleware(['auth','super-admin']);
+route::get('/create-account',[SuperAdminController::class,'create_account'])->middleware(['auth','super-admin'])->name('create-account');
+route::post('/register-account',[SuperAdminController::class,'register_account'])->middleware(['auth','super-admin'])->name('register-account');
 
 //for admin only
 route::get('admin-post',[AdminController::class,'post'])->middleware(['auth','admin']);

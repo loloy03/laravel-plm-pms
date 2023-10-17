@@ -15,7 +15,7 @@ class SuperAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth()->user()->usertype == 'super-admin') {
+        if (Auth()->user()->user_type == 'super-admin') {
             return $next($request);
         }
 

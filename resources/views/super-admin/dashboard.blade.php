@@ -15,9 +15,4 @@
             </div>
         </div>
     </div>
-    <div>
-        <x-primary-button class="ml-3 max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <a href="{{route('register')}}">{{ __('Create an Account') }}</a>
-        </x-primary-button>
-    </div>
 </x-app-layout>
