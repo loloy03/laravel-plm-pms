@@ -20,6 +20,9 @@ class HomeController extends Controller
             elseif ($usertype=='super-admin') {
                 return view('super-admin.dashboard');
             }
+            elseif ($usertype=='admin') {
+                return view('admin.dashboard');
+            }
         }
     }
 }
