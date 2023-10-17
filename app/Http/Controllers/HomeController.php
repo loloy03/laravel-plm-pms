@@ -18,7 +18,7 @@ class HomeController extends Controller
                 return view ('dashboard');
             }
             elseif ($usertype=='super-admin') {
-                return view('super-admin.super-admin-home');
+                return view('super-admin.dashboard');
             }
         }
     }
