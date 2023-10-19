@@ -42,6 +42,6 @@ class SuperAdminController extends Controller
 
         // Auth::login($user);
 
-        // return redirect(RouteServiceProvider::HOME);
+        return redirect()->back()->with('success', 'Account Created Successfully');
     }
 }

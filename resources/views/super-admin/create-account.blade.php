@@ -9,8 +9,12 @@
             <form method="POST" action="{{ route('register-account') }}">
                 @csrf
 
+                @if (Session::has('success'))
+                <x-success :message="Session::get('success')" />
+                @endif
+
                 <!-- For first name -->
-                <div>
+                <div class="mt-4">
                     <x-input-label for="first_name" :value="__('First Name')" />
                     <x-text-input id="f_name" class="block mt-1 w-full" type="text" name="first_name" :value="old('name')" required autofocus autocomplete="first_name" />
                     <x-input-error :messages="$errors->get('first_name')" class="mt-2" />
@@ -33,12 +37,12 @@
                 <!-- Create Account as -->
                 <div class="mt-4">
                     <x-input-label for="user_type" :value="__('Create Account as')" />
-                    <select name="user_type" class="block mt-1 w-full">
-                        <option value="" disabled selected>Select User Type</option>
-                        <option value="super-admin">Super Admin</option>
-                        <option value="admin">Admin</option>
-                        <option value="doctor">Doctor</option>
-                        <option value="student">Student</option>
+                    <select name="user_type" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                        <option class="mt-2" disabled selected >Select User Type</option>
+                        <option class="mt-2" value="super-admin">Super Admin</option>
+                        <option class="mt-2" value="admin">Admin</option>
+                        <option class="mt-2" value="doctor">Doctor</option>
+                        <option class="mt-2" value="student">Student</option>
                     </select>
                     <x-input-error :messages="$errors->get('user_type')" class="mt-2" />
                 </div>
