@@ -23,14 +23,15 @@ Route::get('/', function () {
 });
 
 //login condition
-route::get('/home',[HomeController::class,'index'])->middleware('auth')->name('home');
+route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
 
 //for super admin only
-route::get('/create-account',[SuperAdminController::class,'create_account'])->middleware(['auth','super-admin'])->name('create-account');
-route::post('/register-account',[SuperAdminController::class,'register_account'])->middleware(['auth','super-admin'])->name('register-account');
+route::get('/create-account', [SuperAdminController::class, 'create_account'])->middleware(['auth', 'super-admin'])->name('create-account');
+route::post('/register-account', [SuperAdminController::class, 'register_account'])->middleware(['auth', 'super-admin'])->name('register-account');
 
 //for admin only
-route::get('admin-post',[AdminController::class,'post'])->middleware(['auth','admin']);
+route::get('/create-appointment-page', [AdminController::class, 'create_appointment_page'])->middleware(['auth', 'admin'])->name('create-appointment-page');
+route::post('/store-appointment', [AdminController::class, 'store_appointment'])->middleware(['auth', 'admin'])->name('store-appointment');
 
 //others
 Route::middleware('auth')->group(function () {
@@ -39,4 +40,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
