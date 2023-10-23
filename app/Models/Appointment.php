@@ -13,6 +13,6 @@ class Appointment extends Model
         'appointment_description',
         'appointment_start_date',
         'appointment_end_date',
-        'appointment_assigned_doctor'
+        'appointment_assigned_doctor_id'
     ];
 }

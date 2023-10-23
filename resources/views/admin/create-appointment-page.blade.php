@@ -43,14 +43,14 @@
 
                 <!-- Appointment Assigned Doctor -->
                 <div class="mt-4">
-                    <x-input-label for="appointment_assigned_doctor" :value="__('Appointment Assigned Doctor')" />
-                    <select name="appointment_assigned_doctor" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
+                    <x-input-label for="appointment_assigned_doctor_id" :value="__('Appointment Assigned Doctor')" />
+                    <select name="appointment_assigned_doctor_id" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
                         <option class="mt-2" disabled selected>Select Doctor</option>
                         @foreach ($doctors as $doctor)
-                        <option value="{{ $doctor->id }}">{{ $doctor->first_name }}</option>
+                        <option value="{{ $doctor->id }}"> Dr. {{ $doctor->first_name }} {{ $doctor->last_name }}</option>
                         @endforeach
                     </select>
-                    <x-input-error :messages="$errors->get('appointment_assigned_doctor')" class="mt-2" />
+                    <x-input-error :messages="$errors->get('appointment_assigned_doctor_id')" class="mt-2" />
                 </div>
 
                 <div class="flex items-center justify-center mt-4">

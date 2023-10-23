@@ -17,20 +17,22 @@ class AdminController extends Controller
     }
     public function store_appointment(Request $request)
     {
+        //validate data input in the forms
         $request->validate([
             'appointment_title' => ['required', 'string', 'max:255'],
             'appointment_description' => ['required', 'string', 'max:255'],
             'appointment_start_date' => ['required', 'date',],
             'appointment_end_date' => ['required', 'date'],
-            "appointment_assigned_doctor" => ['required'],
+            "appointment_assigned_doctor_id" => ['required'],
         ]);
 
+        //store info in the db
         Appointment::create([
             'appointment_title' => $request->appointment_title,
             'appointment_description' => $request->appointment_description,
             'appointment_start_date' => $request->appointment_start_date,
             'appointment_end_date' => $request->appointment_end_date,
-            "appointment_assigned_doctor" => $request->appointment_assigned_doctor,
+            "appointment_assigned_doctor_id" => $request->appointment_assigned_doctor_id,
         ]);
 
         return redirect()->back()->with('success', 'Appointed Created Successfully');
