@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Appointment extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'appointment_id';
     protected $fillable = [
         'appointment_title',
         'appointment_description',

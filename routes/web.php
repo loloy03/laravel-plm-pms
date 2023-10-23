@@ -32,6 +32,12 @@ route::post('/register-account', [SuperAdminController::class, 'register_account
 //for admin only
 route::get('/create-appointment-page', [AdminController::class, 'create_appointment_page'])->middleware(['auth', 'admin'])->name('create-appointment-page');
 route::post('/store-appointment', [AdminController::class, 'store_appointment'])->middleware(['auth', 'admin'])->name('store-appointment');
+route::get('/view-list-appointment-page', [AdminController::class, 'view_list_appointment'])->middleware(['auth', 'admin'])->name('view-list-appointment-page');
+Route::get('/appointment/{id}', [AdminController::class, 'show_appointment'])->middleware(['auth', 'admin'])->name('show-appointmet');
+Route::post('/accept-appointment/{appointment_request_id}', [AdminController::class, 'accept_appointment'])->middleware(['auth', 'admin'])->name('accept-appointment');
+Route::post('/decline-appointment/{appointment_request_id}', [AdminController::class, 'decline_appointment'])->middleware(['auth', 'admin'])->name('decline-appointment');
+
+
 
 //others
 Route::middleware('auth')->group(function () {

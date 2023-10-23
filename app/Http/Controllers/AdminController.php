@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
+use App\Models\AppointmentRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -15,6 +16,65 @@ class AdminController extends Controller
 
         return view('admin.create-appointment-page', compact('doctors'));
     }
+
+    public function accept_appointment($id)
+    {
+        $appointment_request = AppointmentRequest::find($id);
+
+        if (!$id) {
+            // Handle the case where the appointment request is not found, e.g., show an error page or a message.
+            return redirect()->route('error'); // Example: Redirect to an error route
+        }
+
+        $appointment_request->update(['status' => 'accepted']);
+
+        return redirect()->back();
+    }
+
+    public function decline_appointment($id)
+    {
+        $appointment_request = AppointmentRequest::find($id);
+
+        if (!$id) {
+            // Handle the case where the appointment request is not found, e.g., show an error page or a message.
+            return redirect()->route('error'); // Example: Redirect to an error route
+        }
+
+        $appointment_request->update(['status' => 'declined']);
+
+        return redirect()->back();
+    }
+
+    public function view_list_appointment()
+    {
+        //join the appointment table with users table
+        $appointments = Appointment::join('users', 'appointments.appointment_assigned_doctor_id', '=', 'users.id')
+            ->select('appointments.*', 'users.*')
+            ->get();
+
+        return view('admin.view-list-appointment-page', compact('appointments'));
+    }
+
+    public function show_appointment($id)
+    {
+        $appointment = Appointment::join('users', 'appointments.appointment_assigned_doctor_id', '=', 'users.id')
+            ->select('appointments.*', 'users.*') // Specify the columns you want to select from the users table
+            ->where('appointments.appointment_id', $id) // Filter by the appointment's ID
+            ->first();
+
+        // Check if the appointment was found
+        if (!$appointment) {
+            // Handle the case where the appointment is not found, e.g., show an error page or a message.
+            return redirect()->route('error'); // Example: Redirect to an error route
+        }
+
+        $appointment_requests = AppointmentRequest::join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.appointment_id')->where('appointment_requests.appointment_id', $id)->whereNull('appointment_requests.status')->get();
+
+        return view('admin.show-appointment', compact('appointment', 'appointment_requests'));
+    }
+
+
+
     public function store_appointment(Request $request)
     {
         //validate data input in the forms
