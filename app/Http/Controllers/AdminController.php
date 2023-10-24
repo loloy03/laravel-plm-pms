@@ -63,7 +63,7 @@ class AdminController extends Controller
             $appointment_requests_count[$id] = $appointment_requests->count();
         }
 
-        return view('admin.view-list-appointment-page', compact('appointments','appointment_requests_count'));
+        return view('admin.view-list-appointment-page', compact('appointments', 'appointment_requests_count'));
     }
 
     public function show_appointment($id)
@@ -79,14 +79,16 @@ class AdminController extends Controller
             return redirect()->route('error'); // Example: Redirect to an error route
         }
 
+        $accepted_requests = AppointmentRequest::join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.appointment_id')->where('appointment_requests.appointment_id', $id)->where('appointment_requests.status', '=', 'accepted')->get();
+
         //quantity of the accepted request of a appointment
-        $accepted_requests_count = AppointmentRequest::join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.appointment_id')->where('appointment_requests.appointment_id', $id)->where('appointment_requests.status', '=', 'accepted')->get()->count();
+        $accepted_requests_count = $accepted_requests->count();
 
         $appointment_requests = AppointmentRequest::join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.appointment_id')->where('appointment_requests.appointment_id', $id)->whereNull('appointment_requests.status')->get();
 
         $appointment_requests_count = $appointment_requests->count();
 
-        return view('admin.show-appointment', compact('appointment', 'appointment_requests', 'accepted_requests_count', 'appointment_requests_count'));
+        return view('admin.show-appointment', compact('appointment', 'appointment_requests', 'accepted_requests_count', 'appointment_requests_count','accepted_requests'));
     }
 
 
