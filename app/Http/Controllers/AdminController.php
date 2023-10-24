@@ -52,7 +52,18 @@ class AdminController extends Controller
             ->select('appointments.*', 'users.*')
             ->get();
 
-        return view('admin.view-list-appointment-page', compact('appointments'));
+        // Retrieve the count of appointment requests for each appointment
+        $appointment_requests_count = [];
+        foreach ($appointments as $appointment) {
+            $id = $appointment->appointment_id;
+            $appointment_requests = AppointmentRequest::join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.appointment_id')
+                ->where('appointment_requests.appointment_id', $id)
+                ->whereNull('appointment_requests.status')
+                ->get();
+            $appointment_requests_count[$id] = $appointment_requests->count();
+        }
+
+        return view('admin.view-list-appointment-page', compact('appointments','appointment_requests_count'));
     }
 
     public function show_appointment($id)
@@ -68,9 +79,14 @@ class AdminController extends Controller
             return redirect()->route('error'); // Example: Redirect to an error route
         }
 
+        //quantity of the accepted request of a appointment
+        $accepted_requests_count = AppointmentRequest::join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.appointment_id')->where('appointment_requests.appointment_id', $id)->where('appointment_requests.status', '=', 'accepted')->get()->count();
+
         $appointment_requests = AppointmentRequest::join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.appointment_id')->where('appointment_requests.appointment_id', $id)->whereNull('appointment_requests.status')->get();
 
-        return view('admin.show-appointment', compact('appointment', 'appointment_requests'));
+        $appointment_requests_count = $appointment_requests->count();
+
+        return view('admin.show-appointment', compact('appointment', 'appointment_requests', 'accepted_requests_count', 'appointment_requests_count'));
     }
 
 

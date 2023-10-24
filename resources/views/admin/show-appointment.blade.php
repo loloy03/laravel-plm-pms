@@ -28,9 +28,14 @@
                     <div>
                         End Date: {{ $appointment->appointment_end_date }}
                     </div>
-                    <div class="py-12">
-                        Students want to appoint:
+                    <div>
+                        Student Accepted : {{ $accepted_requests_count }}
                     </div>
+                    @if ($appointment_requests_count > 0)
+                    <div class="pt-10 text-yellow-500">
+                        Students Pending Requests:
+                    </div>
+                    @endif
                     @foreach ($appointment_requests as $appointment_request)
                     <div class="p-10 bg-green-100 mt-10">
                         Name: {{$appointment_request->first_name}} {{$appointment_request->last_name}}
@@ -49,7 +54,6 @@
                         </div>
                     </div>
                     @endforeach
-
                 </div>
             </div>
         </div>
