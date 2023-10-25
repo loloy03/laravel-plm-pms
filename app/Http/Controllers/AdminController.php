@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Mail\AcceptedScheduleInfo;
 use App\Models\Appointment;
 use App\Models\AppointmentRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
@@ -16,20 +18,29 @@ class AdminController extends Controller
 
         return view('admin.create-appointment-page', compact('doctors'));
     }
-
     public function accept_appointment($id)
     {
-        $appointment_request = AppointmentRequest::find($id);
 
-        if (!$id) {
-            // Handle the case where the appointment request is not found, e.g., show an error page or a message.
-            return redirect()->route('error'); // Example: Redirect to an error route
-        }
+        $appointment_request = AppointmentRequest::find($id)->join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.appointment_id')->join('users', 'appointment_requests.id', '=', 'users.id')->first();
 
         $appointment_request->update(['status' => 'accepted']);
 
+        $mail_data = [
+            'appointment_request_id' => $appointment_request->appointment_request_id,
+            'appointment_start_date' => $appointment_request->appointment_start_date,
+            'appointment_end_date' => $appointment_request->appointment_end_date,
+            'email' => $appointment_request->email,
+            'last_name' => $appointment_request->last_name,
+        ];
+
+        //sending the account information to the email
+        Mail::to($appointment_request->email)->send(new AcceptedScheduleInfo($mail_data));
+
         return redirect()->back();
     }
+
+
+
 
     public function decline_appointment($id)
     {
@@ -88,7 +99,7 @@ class AdminController extends Controller
 
         $appointment_requests_count = $appointment_requests->count();
 
-        return view('admin.show-appointment', compact('appointment', 'appointment_requests', 'accepted_requests_count', 'appointment_requests_count','accepted_requests'));
+        return view('admin.show-appointment', compact('appointment', 'appointment_requests', 'accepted_requests_count', 'appointment_requests_count', 'accepted_requests'));
     }
 
 
