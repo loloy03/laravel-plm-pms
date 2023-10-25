@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Mail\AccountInfoDistribute;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Mail;
 
 class SuperAdminController extends Controller
 {
@@ -40,7 +42,17 @@ class SuperAdminController extends Controller
 
         event(new Registered($user));
 
-        // Auth::login($user);
+        //storing the data for mail purpose
+        $mail_data = [
+            'user_type'=> $request->user_type,
+            'first_name' => $request->first_name,
+            'last_name' =>  $request->last_name,
+            'email' => $request->email,
+            'password' => $request->password,
+        ];
+
+        //sending the account information to the email
+        Mail::to($request->email)->send(new AccountInfoDistribute($mail_data));
 
         return redirect()->back()->with('success', 'Account Created Successfully');
     }
