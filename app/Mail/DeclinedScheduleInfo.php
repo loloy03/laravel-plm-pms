@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class AcceptedScheduleInfo extends Mailable
+class DeclinedScheduleInfo extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -28,7 +28,7 @@ class AcceptedScheduleInfo extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Appointment Accepted',
+            subject: 'Appointment Declined',
         );
     }
 
@@ -36,9 +36,9 @@ class AcceptedScheduleInfo extends Mailable
      * Get the message content definition.
      */
     public function content(): Content
-{
+    {
         return new Content(
-            view: 'emails.approved_appointment_sched',
+            view: 'emails.declined_appointment_sched',
         );
     }
 

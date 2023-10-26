@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Mail\AcceptedScheduleInfo;
+use App\Mail\DeclinedScheduleInfo;
 use App\Models\Appointment;
 use App\Models\AppointmentRequest;
 use App\Models\User;
@@ -50,14 +51,18 @@ class AdminController extends Controller
 
     public function decline_appointment($id)
     {
-        $appointment_request = AppointmentRequest::find($id);
-
-        if (!$id) {
-            // Handle the case where the appointment request is not found, e.g., show an error page or a message.
-            return redirect()->route('error'); // Example: Redirect to an error route
-        }
+        $appointment_request = AppointmentRequest::find($id)->join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.appointment_id')->join('users', 'appointment_requests.id', '=', 'users.id')->first();
 
         $appointment_request->update(['status' => 'declined']);
+
+        $mail_data = [
+            'appointment_request_id' => $appointment_request->appointment_request_id,
+            'last_name' => $appointment_request->first_name,
+            'email' => $appointment_request->email,
+        ];
+
+        //sending the account information to the email
+        Mail::to($appointment_request->email)->send(new DeclinedScheduleInfo($mail_data));
 
         return redirect()->back();
     }
@@ -96,7 +101,7 @@ class AdminController extends Controller
             return redirect()->route('error'); // Example: Redirect to an error route
         }
 
-        $accepted_requests = AppointmentRequest::join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.appointment_id')->join('users','appointment_requests.id','=','users.id')->where('appointment_requests.appointment_id', $id)->where('appointment_requests.status', '=', 'accepted')->get();
+        $accepted_requests = AppointmentRequest::join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.appointment_id')->join('users', 'appointment_requests.id', '=', 'users.id')->where('appointment_requests.appointment_id', $id)->where('appointment_requests.status', '=', 'accepted')->get();
 
         //quantity of the accepted request of a appointment
         $accepted_requests_count = $accepted_requests->count();
