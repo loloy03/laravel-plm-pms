@@ -72,39 +72,40 @@
                     </div>
                     @endforeach
                     @if ($appointment_requests_count > 0)
-                    <div class="pt-10 text-yellow-500 font-bold">
+                    <div class="mt-5 text-yellow-500 font-bold">
                         <i class="fa-solid fa-spinner"></i>
                         Students Pending Requests:
                     </div>
                     @endif
                     @foreach ($appointment_requests as $appointment_request)
-                    <div class="mt-5">
-                        <div class="p-5 bg-yellow-50 rounded-lg flex flex-row">
-                            <div class="basis-1/4 flex justify-center items-center text-xl">
-                                <i class="fa-solid fa-user"></i>
-                            </div>
-                            <div class="basis-1/2">
-                                <div class="text-sm">
-                                    Name: {{$appointment_request->first_name}} {{$appointment_request->last_name}}
+                    <a href="{{ route('show_user_info', ['id' => $appointment_request->id]) }}">
+                        <div class="mt-5">
+                            <div class="p-5 bg-yellow-50 hover:bg-yellow-100 transition ease-in-out duration-150 rounded-lg flex flex-row">
+                                <div class="basis-1/4 flex justify-center items-center text-xl">
+                                    <i class="fa-solid fa-user"></i>
                                 </div>
-                                <div class="text-sm">
-                                    Appointment Request ID: {{$appointment_request->appointment_request_id}}
+                                <div class="basis-1/2">
+                                    <div class="text-sm">
+                                        Name: {{$appointment_request->first_name}} {{$appointment_request->last_name}}
+                                    </div>
+                                    <div class="text-sm">
+                                        Appointment Request ID: {{$appointment_request->appointment_request_id}}
+                                    </div>
+                                </div>
+                                <div class="basis-1/4 flex justify-end items-center ">
+                                    <form action="{{ route('accept-appointment', $appointment_request->appointment_request_id) }}" method="post">
+                                        @csrf
+                                        <button class="bg-green-500 p-2 mx-2 hover:text-white"><i class="fa-solid fa-check"></i></button>
+                                    </form>
+                                    <form action="{{ route('decline-appointment', $appointment_request->appointment_request_id) }}" method="post">
+                                        @csrf
+                                        <button class="bg-red-500 p-2 hover:text-white"><i class="fa-solid fa-x"></i></button>
+                                    </form>
                                 </div>
                             </div>
-                            <div class="basis-1/4 flex justify-end items-center ">
-                                <form action="{{ route('accept-appointment', $appointment_request->appointment_request_id) }}" method="post">
-                                    @csrf
-                                    <button class="bg-green-500 p-2 mx-2 hover:text-white"><i class="fa-solid fa-check"></i></button>
-                                </form>
-                                <form action="{{ route('decline-appointment', $appointment_request->appointment_request_id) }}" method="post">
-                                    @csrf
-                                    <button class="bg-red-500 p-2 hover:text-white"><i class="fa-solid fa-x"></i></button>
-                                </form>
-                            </div>
-
                         </div>
-                    </div>
-                    @endforeach
+                        @endforeach
+                    </a>
                 </div>
             </div>
         </div>

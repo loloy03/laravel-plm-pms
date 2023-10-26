@@ -36,6 +36,7 @@ route::get('/view-list-appointment-page', [AdminController::class, 'view_list_ap
 Route::get('/appointment/{id}', [AdminController::class, 'show_appointment'])->middleware(['auth', 'admin'])->name('show-appointmet');
 Route::post('/accept-appointment/{appointment_request_id}', [AdminController::class, 'accept_appointment'])->middleware(['auth', 'admin'])->name('accept-appointment');
 Route::post('/decline-appointment/{appointment_request_id}', [AdminController::class, 'decline_appointment'])->middleware(['auth', 'admin'])->name('decline-appointment');
+Route::get('/show_user_info/{id}', [AdminController::class, 'show_user_info'])->middleware(['auth', 'admin'])->name('show_user_info');
 
 
 

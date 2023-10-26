@@ -39,8 +39,14 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
+    public function show_user_info($id)
+    {
+        $user_info = User::find($id);
 
+        // dd($user_info);
 
+        return view('admin.show-user-info', compact('user_info'));
+    }
 
     public function decline_appointment($id)
     {
@@ -90,7 +96,7 @@ class AdminController extends Controller
             return redirect()->route('error'); // Example: Redirect to an error route
         }
 
-        $accepted_requests = AppointmentRequest::join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.appointment_id')->where('appointment_requests.appointment_id', $id)->where('appointment_requests.status', '=', 'accepted')->get();
+        $accepted_requests = AppointmentRequest::join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.appointment_id')->join('users','appointment_requests.id','=','users.id')->where('appointment_requests.appointment_id', $id)->where('appointment_requests.status', '=', 'accepted')->get();
 
         //quantity of the accepted request of a appointment
         $accepted_requests_count = $accepted_requests->count();
