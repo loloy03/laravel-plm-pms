@@ -27,7 +27,11 @@ route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name(
 
 //for super admin only
 route::get('/create-account', [SuperAdminController::class, 'create_account'])->middleware(['auth', 'super-admin'])->name('create-account');
+route::get('/account-list', [SuperAdminController::class, 'account_list'])->middleware(['auth', 'super-admin'])->name('account-list');
 route::post('/register-account', [SuperAdminController::class, 'register_account'])->middleware(['auth', 'super-admin'])->name('register-account');
+route::post('/accounts/search', [SuperAdminController::class, 'account_search'])->middleware(['auth', 'super-admin'])->name('accounts-search');
+route::post('/accounts/delete/{id}', [SuperAdminController::class, 'account_delete'])->middleware(['auth', 'super-admin'])->name('account-delete');
+route::post('/accounts/edit/{id}', [SuperAdminController::class, 'account_edit'])->middleware(['auth', 'super-admin'])->name('account-edit');
 
 //for admin only
 route::get('/create-appointment-page', [AdminController::class, 'create_appointment_page'])->middleware(['auth', 'admin'])->name('create-appointment-page');

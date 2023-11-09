@@ -18,6 +18,14 @@
                 </div>
 
                 <!-- For Super Admin only --->
+                
+                @if(Auth::user()->user_type === 'super-admin')
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('account-list')" :active="request()->routeIs('account-list')">
+                        {{ __('Account List') }}
+                    </x-nav-link>
+                </div>
+                @endif
                 @if(Auth::user()->user_type === 'super-admin')
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('create-account')" :active="request()->routeIs('create-account')">

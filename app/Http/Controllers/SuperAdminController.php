@@ -22,6 +22,43 @@ class SuperAdminController extends Controller
     {
         return view('super-admin.create-account');
     }
+    public function account_list()
+    {
+        $accounts = User::get();
+
+        return view('super-admin.account-list', compact('accounts'));
+    }
+    public function account_search(Request $request)
+    {
+        $query = $request->get('q');
+
+        $accounts = User::where(function ($queryBuilder) use ($query) {
+            $queryBuilder->where('last_name', 'like', '%' . $query . '%')
+                ->orWhere('first_name', 'like', '%' . $query . '%');
+        })->get();
+
+        // Return the accounts to the view.
+        return view('super-admin.account-list', compact('accounts'));
+    }
+    public function account_delete($id)
+    {
+        // Find the user by ID
+        $user = User::find($id);
+
+        if ($user) {
+            // Delete the user
+            $user->delete();
+        }
+
+        return redirect()->back()->with('success', 'Account Deleted Successfully');
+    }public function account_edit($id)
+    {
+        $account = User::find($id);
+    
+        return view('super-admin.account-edit', compact('account'));
+    }
+    
+
     public function register_account(Request $request)
     {
         $request->validate([
@@ -44,7 +81,7 @@ class SuperAdminController extends Controller
 
         //storing the data for mail purpose
         $mail_data = [
-            'user_type'=> $request->user_type,
+            'user_type' => $request->user_type,
             'first_name' => $request->first_name,
             'last_name' =>  $request->last_name,
             'email' => $request->email,
