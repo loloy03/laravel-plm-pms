@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
     @if (Session::has('success'))
-    <x-success :message="Session::get('success')" />
+    <x-success :message="Session::get('success')"/>
     @endif
     <div class="flex justify-end">
         <form action="{{ route('accounts-search') }}" method="POST" class="mx-5 my-2">
@@ -27,7 +27,7 @@
                 <div>User Type: {{ strtoupper($account->user_type) }}</div>
             </div>
             <div class="basis-1/4 flex justify-center items-center">
-                <form action="{{ route('account-edit', $account->id) }}" method="post">
+                <form action="{{ route('account-show', $account->id) }}" method="get">
                     @csrf
                     <button><i class="fa-regular fa-pen-to-square mr-3 text-md hover:text-yellow-500 transition ease-to-ease"></i></button>
                 </form>

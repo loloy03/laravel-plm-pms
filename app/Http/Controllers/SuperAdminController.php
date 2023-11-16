@@ -51,13 +51,41 @@ class SuperAdminController extends Controller
         }
 
         return redirect()->back()->with('success', 'Account Deleted Successfully');
-    }public function account_edit($id)
+    }
+    public function account_show($id)
     {
         $account = User::find($id);
-    
-        return view('super-admin.account-edit', compact('account'));
+
+        return view('super-admin.account-show', compact('account'));
     }
-    
+
+    public function account_edit($id)
+    {
+        // Fetch the account details based on the $id
+        $account = User::find($id);
+
+        // Validate the incoming request data
+        $validatedData = request()->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'user_type' => 'sometimes|string|max:255', // Make 'user_type' optional
+        ]);
+
+        // Update only 'first_name' and 'last_name' fields
+        $account->update([
+            'first_name' => $validatedData['first_name'],
+            'last_name' => $validatedData['last_name'],
+        ]);
+
+        // Check if 'user_type' is present in the request before updating
+        if (request()->has('user_type')) {
+            $account->update(['user_type' => request('user_type')]);
+        }
+
+        return redirect()->back()->with('success', 'Account updated successfully!');
+    }
+
+
 
     public function register_account(Request $request)
     {
