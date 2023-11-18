@@ -55,22 +55,24 @@
                     </div>
                     @endif
                     @foreach ($accepted_requests as $accepted_request)
-                    <div class="mt-5 toggle-element hidden">
-                        <div class="p-5 bg-green-50 rounded-lg flex flex-row">
-                            <div class="basis-1/4 flex justify-center items-center text-xl">
-                                <i class="fa-solid fa-user"></i>
-                            </div>
-                            <div class="basis-3/4">
-                                <div class="text-sm">
-                                    Name: {{$accepted_request->first_name}} {{$accepted_request->last_name}}
+                    <a href="{{ route('show_user_info', ['id' => $accepted_request->id]) }}">
+                        <div class="mt-5 toggle-element hidden ">
+                            <div class="p-5 bg-green-50 rounded-lg flex flex-row hover:bg-green-100 transition ease-in-out duration-150">
+                                <div class="basis-1/4 flex justify-center items-center text-xl">
+                                    <i class="fa-solid fa-user"></i>
                                 </div>
-                                <div class="text-sm">
-                                    Appointment Request ID: {{$accepted_request->appointment_request_id}}
+                                <div class="basis-3/4">
+                                    <div class="text-sm">
+                                        Name: {{$accepted_request->first_name}} {{$accepted_request->last_name}}
+                                    </div>
+                                    <div class="text-sm">
+                                        Appointment Request ID: {{$accepted_request->appointment_request_id}}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    @endforeach
+                        @endforeach
+                    </a>
                     @if ($appointment_requests_count > 0)
                     <div class="mt-5 text-yellow-500 font-bold">
                         <i class="fa-solid fa-spinner"></i>
