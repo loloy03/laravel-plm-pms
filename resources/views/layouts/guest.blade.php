@@ -28,18 +28,34 @@
 
                     <div class="flex text-right">
                         <!-- Navigation Links -->
-                        <!-- Navigation Links -->
                         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                             <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
                                 {{ __('Services') }}
                             </x-nav-link>
                         </div>
-                        <!-- Navigation Links -->
+
                         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                             <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
                                 {{ __('Contact Info') }}
                             </x-nav-link>
                         </div>
+
+                        @if (Route::has('login'))
+                        @auth
+                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
+                                {{ __('Dashboard') }}
+                            </x-nav-link>
+                        </div>
+                        @else
+                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
+                                {{ __('Login') }}
+                            </x-nav-link>
+                        </div>
+                        @endauth
+                        @endif
+
                     </div>
                 </div>
 
