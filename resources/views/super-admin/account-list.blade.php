@@ -16,7 +16,7 @@
     </div>
     @foreach($accounts as $account)
     <div class="flex justify-center items-center ">
-        <div class="w-full mx-5 my-2 bg-white shadow-md overflow-hidden rounded-sm text-sm flex flex-row p-5 rounded-md rounded-lg">
+        <div class="w-full mx-5 md:mx-10 my-2 bg-white shadow-md overflow-hidden rounded-sm text-sm flex flex-row p-5 rounded-md rounded-lg">
             <div class="basis-3/4">
                 <div> Account ID: {{ $account->id }}</div>
                 <div class="text-base font-bold"> Name: {{ ucfirst($account->first_name) }}
