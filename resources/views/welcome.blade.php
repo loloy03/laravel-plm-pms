@@ -51,7 +51,7 @@
             <div class="mb-1 font-bold">
                 Contact Us
             </div>
-            <div class="text-sm">
+            <div class="text-xs">
                 <p>Landline: +63 (2) 8 643 2500</p>
                 <p> +63 (2) 568 7027</p>
                 <p> Mobile: +63 (916) 8945 098</p>
@@ -59,7 +59,7 @@
         </div>
         <div class="basis-1/4 p-5">
             <div class="mb-1 font-bold">Address</div>
-            <div class="text-sm">
+            <div class="text-xs">
                 <p>General Luna Corver Muralla Street, Instramuros, City of Manila 1000 Metro Manila.</p>
             </div>
         </div>
@@ -68,7 +68,7 @@
         </div>
 
     </div>
-    <div class="bg-red-700 p-5 flex justify-center items-center text-white">
+    <div class="bg-red-700 p-5 flex justify-center items-center text-white text-sm">
         <div>
             ©️ 1987 - 2023 Pamantasan ng Lungsod ng Maynila. All Rights Reserved.
         </div>
