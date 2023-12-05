@@ -5,18 +5,18 @@
         </h2>
     </x-slot>
     @if (Session::has('success'))
-    <x-success :message="Session::get('success')"/>
+    <x-success :message="Session::get('success')" />
     @endif
     <div class="flex justify-end">
-        <form action="{{ route('accounts-search') }}" method="POST" class="mx-5 my-2">
+        <form action="{{ route('accounts-search') }}" method="POST" class="mx-5 my-5">
             @csrf
             <input type="text" class="form-control rounded-md w-48 h-10" name="q" placeholder="Search Names...">
-            <x-primary-button type="submit" class="">Search</x-primary-button>
+            <x-primary-button type="submit" class=" mb-auto">Search</x-primary-button>
         </form>
     </div>
     @foreach($accounts as $account)
-    <div class="flex justify-center items-center">
-        <div class="w-full mx-5 my-2 bg-white shadow-md overflow-hidden rounded-sm text-sm flex flex-row p-5 rounded-md">
+    <div class="flex justify-center items-center ">
+        <div class="w-full mx-5 my-2 bg-white shadow-md overflow-hidden rounded-sm text-sm flex flex-row p-5 rounded-md rounded-lg">
             <div class="basis-3/4">
                 <div> Account ID: {{ $account->id }}</div>
                 <div class="text-base font-bold"> Name: {{ ucfirst($account->first_name) }}
