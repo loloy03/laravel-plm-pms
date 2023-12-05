@@ -6,12 +6,15 @@
     </x-slot>
     <div class="m-6 bg-white shadow-md overflow-hidden rounded-lg">
         <form method="POST" action="{{ route('register-account') }}">
+            @csrf
             @if (Session::has('success'))
             <x-success :message="Session::get('success')" />
             @endif
-            @csrf
+            
             <div class="md:flex flex-row">
+
                 <div class="basis-1/2 md:p-10 p-5">
+
                     <!-- For first name -->
                     <div class="mt-4">
                         <x-input-label for="first_name" :value="__('First Name')" />
