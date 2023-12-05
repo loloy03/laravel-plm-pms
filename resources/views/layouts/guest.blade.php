@@ -29,13 +29,14 @@
                     <div class="flex text-right">
                         <!-- Navigation Links -->
                         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                            <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
+                            <x-nav-link :href="'https://plm.edu.ph/students/student-services'">
                                 {{ __('Services') }}
                             </x-nav-link>
+
                         </div>
 
                         <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                            <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
+                            <x-nav-link :href="'https://www.plm.edu.ph/contact'">
                                 {{ __('Contact Info') }}
                             </x-nav-link>
                         </div>
