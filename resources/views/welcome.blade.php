@@ -1,4 +1,3 @@
-
 <x-guest-layout>
 
     <div class="md:flex flex-row items-center md:h-screen">
@@ -10,7 +9,7 @@
                 YOUR HEALTH IS OUR PRIORITY
             </div>
             <div class="mb-3">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam, laborum corrupti ad dicta illum quidem laudantium reiciendis doloribus libero voluptatem. Assumenda, ad recusandae! Aliquid, laboriosam ea non corporis saepe ullam?
+                The PLM-University Health Services under the direct supervision of the Vice-President for Administration is in charge of providing health services and emergency treatment for all university constituents.
             </div>
             <x-primary-button>
                 {{ __('Select Appointment') }}
@@ -26,27 +25,28 @@
                 Welcome to PLM Clinic
             </div>
             <div class="mb-3">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente blanditiis officia et laboriosam voluptas, consectetur fuga. Blanditiis harum tempora tempore dolore laboriosam debitis? Error, explicabo quis vel quisquam numquam a?
+                Our objectives revolve around two key pillars. Firstly, we aim to champion health maintenance by offering fundamental health services encompassing health education, routine physical examinations, screenings, treatments, and ongoing case monitoring.
             </div>
             <div>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente blanditiis officia et laboriosam voluptas, consectetur fuga. Blanditiis harum tempora tempore dolore laboriosam debitis? Error, explicabo quis vel quisquam numquam a?
+                Secondly, we strive to cultivate a culture of high performance among our employees by ensuring access to top-notch healthcare services, fostering a workplace environment centered on quality care and well-being. These objectives form the foundation of our commitment to promoting and supporting health and wellness for all.
             </div>
         </div>
     </div>
     <div class="md:flex flex-row justify-center items-center">
         <div class="basis-1/2 p-20">
             <div class="mb-3">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente blanditiis officia et laboriosam voluptas, consectetur fuga. Blanditiis harum tempora tempore dolore laboriosam debitis? Error, explicabo quis vel quisquam numquam a?
+
+                The University Health Services encompass several functions divided into Medical and Dental Sections. The Medical Section conducts physical examinations for incoming freshmen and new employees, including evaluations through chest x-rays and blood counts. They handle emergencies, assess the fitness of sick individuals, and provide health information through various means.
             </div>
             <div>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente blanditiis officia et laboriosam voluptas, consectetur fuga. Blanditiis harum tempora tempore dolore laboriosam debitis? Error, explicabo quis vel quisquam numquam a?
+                Additionally, they coordinate with other units for immunization programs and screenings. Meanwhile, the Dental Section conducts dental examinations, various dental procedures, and promotes dental health through informational materials.
             </div>
         </div>
         <div class="basis-1/2 p-10">
             <img src="{{ asset('images/nurse-pic-2.jpg') }}" alt="nurse-pic-2">
         </div>
     </div>
-    <div class="bg-red-700 md:flex flex-row justify-center items-center text-white">
+    <div class="bg-red-700 md:flex flex-row justify-center items-center text-white mt-10">
         <div class="basis-1/4 p-5">
             <div class="mb-1 font-bold">
                 Contact Us
@@ -64,7 +64,7 @@
             </div>
         </div>
         <div class="basis-1/2 p-5 flex justify-center items-center">
-            <div><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3861.215549477035!2d120.97360247413211!3d14.586789985897942!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397ca2336770053%3A0x1b731714778d3506!2sPamantasan%20ng%20Lungsod%20ng%20Maynila!5e0!3m2!1sen!2sph!4v1698922437726!5m2!1sen!2sph" width="500" height="150" style="border:0; border-radius:10px" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+            <div><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3861.215549477035!2d120.97360247413211!3d14.586789985897942!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397ca2336770053%3A0x1b731714778d3506!2sPamantasan%20ng%20Lungsod%20ng%20Maynila!5e0!3m2!1sen!2sph!4v1698922437726!5m2!1sen!2sph" width="350" height="150" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
         </div>
 
     </div>
