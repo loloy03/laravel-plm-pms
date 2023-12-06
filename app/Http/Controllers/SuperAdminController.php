@@ -22,12 +22,36 @@ class SuperAdminController extends Controller
     {
         return view('super-admin.create-account');
     }
-    public function account_list()
+    public function account_list(Request $request)
     {
-        $accounts = User::get();
+        // Retrieve the query parameter for sorting
+        $sortBy = $request->query('sort');
+
+        // Default sorting (if no specific sorting is requested)
+        $defaultSort = 'user_type';
+
+        // Get all accounts
+        $accounts = User::query();
+
+        // Sort by user type
+        if ($sortBy === 'admin') {
+            $accounts->where('user_type', 'admin');
+        } elseif ($sortBy === 'super-admin') {
+            $accounts->where('user_type', 'super-admin');
+        } elseif ($sortBy === 'student') {
+            $accounts->where('user_type', 'student');
+        } elseif ($sortBy === 'doctor') {
+            $accounts->where('user_type', 'doctor');
+        } else {
+            // Default sorting by user type
+            $accounts->orderBy($defaultSort);
+        }
+
+        $accounts = $accounts->get();
 
         return view('super-admin.account-list', compact('accounts'));
     }
+
     public function account_search(Request $request)
     {
         $query = $request->get('q');
