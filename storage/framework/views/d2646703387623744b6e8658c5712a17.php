@@ -1,0 +1,2 @@
+<img src="<?php echo e(asset('images/plm-logo--with-header.png')); ?>" alt="Application Logo" class="w-52">
+<?php /**PATH C:\Users\Sophia Queen Lim\Desktop\laravel-plm-pms-main\resources\views/components/application-logo.blade.php ENDPATH**/ ?>
