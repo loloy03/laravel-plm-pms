@@ -75,17 +75,17 @@ class AdminController extends Controller
             ->get();
 
         // Retrieve the count of appointment requests for each appointment
-        $appointment_requests_count = [];
+        $patients_confirmed_count = [];
         foreach ($appointments as $appointment) {
             $id = $appointment->appointment_id;
             $appointment_requests = AppointmentRequest::join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.appointment_id')
                 ->where('appointment_requests.appointment_id', $id)
-                ->whereNull('appointment_requests.status')
+                ->where('appointment_requests.status','confirmed')
                 ->get();
-            $appointment_requests_count[$id] = $appointment_requests->count();
+            $patients_confirmed_count[$id] = $appointment_requests->count();
         }
 
-        return view('admin.view-list-appointment-page', compact('appointments', 'appointment_requests_count'));
+        return view('admin.view-list-appointment-page', compact('appointments', 'patients_confirmed_count'));
     }
 
     public function show_appointment($id)

@@ -21,10 +21,7 @@
                         <div class="basis-1/2">
                             <div class="flex text-sm font-bold text-yellow-500">
                                 <div>
-                                    Pending Request:&nbsp;
-                                </div>
-                                <div>
-                                    {{ $appointment_requests_count[$appointment->appointment_id] }}
+                                Slots Filled: {{ $patients_confirmed_count[$appointment->appointment_id] }} out of {{ $appointment->appointment_allowed_patients }}
                                 </div>
                             </div>
                             <div class="font-bold text-3xl">
