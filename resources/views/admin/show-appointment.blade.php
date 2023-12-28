@@ -44,17 +44,17 @@
                         <div class="font-bold">End Date:&nbsp;</div>
                         <div>{{ \Carbon\Carbon::parse($appointment->appointment_end_date)->format('F d, Y, h:i A') }}</div>
                     </div>
-                    @if ($accepted_requests_count > 0)
+                    @if ($confirmed_requests_count > 0)
                     <div class="flex text-green-500">
                         <div class="mr-1">
                             <i class="fa-solid fa-thumbs-up"></i>
                         </div>
-                        <div class="font-bold">Accepted Students:&nbsp;</div>
-                        <div>{{ $accepted_requests_count }}</div>
-                        <button id="toggleButton" class="bg-green-500 text-white rounded-lg hover:bg-green-300 mx-5 px-5 text-sm">View Students</button>
+                        <div class="font-bold">Confirmed Patients:&nbsp;</div>
+                        <div>{{ $confirmed_requests_count }}</div>
+                        <button id="toggleButton" class="bg-green-500 text-white rounded-lg hover:bg-green-300 mx-5 px-5 text-sm">View Patients</button>
                     </div>
                     @endif
-                    @foreach ($accepted_requests as $accepted_request)
+                    @foreach ($confirmed_requests as $accepted_request)
                     <a href="{{ route('show_user_info', ['id' => $accepted_request->id]) }}">
                         <div class="mt-5 toggle-element hidden ">
                             <div class="p-5 bg-green-50 rounded-lg flex flex-row hover:bg-green-100 transition ease-in-out duration-150">
@@ -68,41 +68,6 @@
                                     <div class="text-sm">
                                         Appointment Request ID: {{$accepted_request->appointment_request_id}}
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach
-                    </a>
-                    @if ($appointment_requests_count > 0)
-                    <div class="mt-5 text-yellow-500 font-bold">
-                        <i class="fa-solid fa-spinner"></i>
-                        Students Pending Requests:
-                    </div>
-                    @endif
-                    @foreach ($appointment_requests as $appointment_request)
-                    <a href="{{ route('show_user_info', ['id' => $appointment_request->id]) }}">
-                        <div class="mt-5">
-                            <div class="p-5 bg-yellow-50 hover:bg-yellow-100 transition ease-in-out duration-150 rounded-lg flex flex-row">
-                                <div class="basis-1/4 flex justify-center items-center text-xl">
-                                    <i class="fa-solid fa-user"></i>
-                                </div>
-                                <div class="basis-1/2">
-                                    <div class="text-sm">
-                                        Name: {{$appointment_request->first_name}} {{$appointment_request->last_name}}
-                                    </div>
-                                    <div class="text-sm">
-                                        Appointment Request ID: {{$appointment_request->appointment_request_id}}
-                                    </div>
-                                </div>
-                                <div class="basis-1/4 flex justify-end items-center ">
-                                    <form action="{{ route('accept-appointment', $appointment_request->appointment_request_id) }}" method="post">
-                                        @csrf
-                                        <button class="bg-green-500 p-2 mx-2 hover:text-white"><i class="fa-solid fa-check"></i></button>
-                                    </form>
-                                    <form action="{{ route('decline-appointment', $appointment_request->appointment_request_id) }}" method="post">
-                                        @csrf
-                                        <button class="bg-red-500 p-2 hover:text-white"><i class="fa-solid fa-x"></i></button>
-                                    </form>
                                 </div>
                             </div>
                         </div>
