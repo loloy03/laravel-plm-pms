@@ -64,7 +64,7 @@ class AdminController extends Controller
             return redirect()->route('error'); // Example: Redirect to an error route
         }
 
-        $confirmed_requests = AppointmentRequest::join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.appointment_id')->join('users', 'appointment_requests.id', '=', 'users.id')->where('appointment_requests.appointment_id', $id)->where('appointment_requests.status', '=', 'confirmed')->get();
+        $confirmed_requests = AppointmentRequest::join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.appointment_id')->join('users', 'appointment_requests.user_id', '=', 'users.id')->where('appointment_requests.appointment_id', $id)->where('appointment_requests.status', '=', 'confirmed')->get();
 
         //quantity of the accepted request of a appointment
         $confirmed_requests_count = $confirmed_requests->count();
