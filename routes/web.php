@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SuperAdminController;
+use App\Http\Controllers\PatientController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -23,7 +24,7 @@ Route::get('/', function () {
 });
 
 //login condition
-route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
+Route::get('/home', [HomeController::class, 'index'])->middleware(['auth', 'check.medical.history'])->name('home');
 
 //for super admin only
 route::get('/create-account', [SuperAdminController::class, 'create_account'])->middleware(['auth', 'super-admin'])->name('create-account');
@@ -41,7 +42,14 @@ route::get('/view-list-appointment-page', [AdminController::class, 'view_list_ap
 Route::get('/appointment/{id}', [AdminController::class, 'show_appointment'])->middleware(['auth', 'admin'])->name('show-appointmet');
 Route::get('/show_user_info/{id}', [AdminController::class, 'show_user_info'])->middleware(['auth', 'admin'])->name('show_user_info');
 
-
+//for patient only
+route::get('/medicalhistory', [PatientController::class, 'medical_history'])->middleware(['auth', 'student'])->name('medicalhistory');
+route::post('/medicalhistoryadd', [PatientController::class, 'medical_historyadd'])->middleware(['auth', 'student'])->name('medicalhistoryadd');
+route::get('/appointmentspage', [PatientController::class, 'available_appointments'])->middleware(['auth', 'student'])->name('appointmentspage');
+route::get('/availappointment/{id}', [PatientController::class, 'avail_appointment'])->middleware(['auth', 'student'])->name('availappointments');
+Route::post('patient/appointments/confirm/{appointment_request_id}', [PatientController::class, 'confirmAppointment'])
+    ->name('patient.appointments.confirm');
+Route::get('/user/details', [UserController::class, 'getUserDetails'])->name('user.details');
 
 //others
 Route::middleware('auth')->group(function () {

@@ -16,6 +16,23 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+                
+                <!-- For Patient only -->
+                @if(Auth::user()->user_type === 'student')
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('medicalhistory')" :active="request()->routeIs('medicalhistory')">
+                        {{ __('Medical History') }}
+                    </x-nav-link>
+                </div>
+                @endif
+
+                @if(Auth::user()->user_type === 'student')
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('appointmentspage')" :active="request()->routeIs('appointmentspage')">
+                        {{ __('Appointments') }}
+                    </x-nav-link>
+                </div>
+                @endif
 
                 <!-- For Super Admin only --->
                 

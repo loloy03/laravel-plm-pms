@@ -67,5 +67,10 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'super-admin' => \App\Http\Middleware\SuperAdmin::class,
         'admin' => \App\Http\Middleware\Admin::class,
+        'student' => \App\Http\Middleware\Student::class,
+    ];
+    
+    protected $routeMiddleware = [
+        'check.medical.history' => \App\Http\Middleware\CheckMedicalHistory::class,
     ];
 }
