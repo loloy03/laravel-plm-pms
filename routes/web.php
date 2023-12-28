@@ -49,9 +49,9 @@ route::get('/appointmentspage', [PatientController::class, 'available_appointmen
 route::get('/availappointment/{id}', [PatientController::class, 'avail_appointment'])->middleware(['auth', 'student'])->name('availappointments');
 Route::post('patient/appointments/confirm/{appointment_request_id}', [PatientController::class, 'confirmAppointment'])
     ->name('patient.appointments.confirm');
-Route::get('/user/details', [UserController::class, 'getUserDetails'])->name('user.details');
+// Route::get('/user/details', [UserController::class, 'getUserDetails'])->name('user.details');
 
-//others
+//othersS
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
