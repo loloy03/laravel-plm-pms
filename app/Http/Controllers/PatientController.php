@@ -57,17 +57,18 @@ class PatientController extends Controller
             ->select('appointments.*', 'users.*')
             ->get();
 
-        $appointment_requests_count = [];
+        // Retrieve the count of appointment requests for each appointment
+        $patients_confirmed_count = [];
         foreach ($appointments as $appointment) {
             $id = $appointment->appointment_id;
             $appointment_requests = AppointmentRequest::join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.appointment_id')
                 ->where('appointment_requests.appointment_id', $id)
-                ->whereNull('appointment_requests.status')
+                ->where('appointment_requests.status', 'confirmed')
                 ->get();
-            $appointment_requests_count[$id] = $appointment_requests->count();
+            $patients_confirmed_count[$id] = $appointment_requests->count();
         }
 
-        return view('student.appointmentspage', compact('appointments', 'appointment_requests_count'));
+        return view('student.appointmentspage', compact('appointments', 'patients_confirmed_count'));
     }
 
     public function avail_appointment($id)
@@ -85,8 +86,8 @@ class PatientController extends Controller
     }
 
     public function confirmAppointment(Request $request, $appointment_request_id)
-{
-    
+    {
+
         // Retrieve the authenticated user
         $user = Auth::user();
 
@@ -103,7 +104,7 @@ class PatientController extends Controller
             $appointmentRequest = new AppointmentRequest();
             $appointmentRequest->user_id = $user->id;
             $appointmentRequest->appointment_id = $appointmentId;
-            $appointmentRequest->status;
+            $appointmentRequest->status='confirmed';
             $appointmentRequest->first_name = $user->first_name;
             $appointmentRequest->last_name = $user->last_name ?? '';
             $appointmentRequest->save();
@@ -117,8 +118,7 @@ class PatientController extends Controller
 
         // Redirect back with  message
         return redirect()->route('appointmentspage')->with('warning', 'Appointment request already exists');
-    
-}
+    }
 
 
     public function getUserDetails()
