@@ -14,6 +14,7 @@ class Appointment extends Model
         'appointment_description',
         'appointment_start_date',
         'appointment_end_date',
+        'appointment_allowed_patients',
         'appointment_assigned_doctor_id'
     ];
 }

@@ -41,6 +41,13 @@
                     <x-input-error :messages="$errors->get('appointment_end_date')" class="mt-2" />
                 </div>
 
+                <!-- Appointment Allowed Patients -->
+                <div class="mt-4">
+                    <x-input-label for="appointment_allowed_patients" :value="__('Allowed Patients')" />
+                    <x-text-input id="appointment_allowed_patients" class="block mt-1 w-full" type="number" name="appointment_allowed_patients" required autofocus />
+                    <x-input-error :messages="$errors->get('appointment_allowed_patients')" class="mt-2" />
+                </div>
+
                 <!-- Appointment Assigned Doctor -->
                 <div class="mt-4">
                     <x-input-label for="appointment_assigned_doctor_id" :value="__('Appointment Assigned Doctor')" />

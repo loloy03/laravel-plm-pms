@@ -123,6 +123,7 @@ class AdminController extends Controller
             'appointment_description' => ['required', 'string', 'max:255'],
             'appointment_start_date' => ['required', 'date',],
             'appointment_end_date' => ['required', 'date'],
+            'appointment_allowed_patients' => ['required'],
             "appointment_assigned_doctor_id" => ['required'],
         ]);
 
@@ -132,6 +133,7 @@ class AdminController extends Controller
             'appointment_description' => $request->appointment_description,
             'appointment_start_date' => $request->appointment_start_date,
             'appointment_end_date' => $request->appointment_end_date,
+            'appointment_allowed_patients' => $request->appointment_allowed_patients,
             "appointment_assigned_doctor_id" => $request->appointment_assigned_doctor_id,
         ]);
 
