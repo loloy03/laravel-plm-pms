@@ -5579,3 +5579,5 @@
 #48 C:\\Users\\james\\Desktop\\vscode folder\\laravel-plm-pms\\laravel-plm-pms\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('C:\\\\Users\\\\james\\\\...')
 #49 {main}
 "} 
+[2023-12-31 05:39:05] local.INFO: Appointment requested successfully  
+[2023-12-31 05:40:01] local.INFO: Appointment requested successfully  
