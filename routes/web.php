@@ -39,6 +39,7 @@ route::post('/accounts/edit/{id}', [SuperAdminController::class, 'account_edit']
 route::get('/create-appointment-page', [AdminController::class, 'create_appointment_page'])->middleware(['auth', 'admin'])->name('create-appointment-page');
 route::post('/store-appointment', [AdminController::class, 'store_appointment'])->middleware(['auth', 'admin'])->name('store-appointment');
 route::get('/view-list-appointment-page', [AdminController::class, 'view_list_appointment'])->middleware(['auth', 'admin'])->name('view-list-appointment-page');
+Route::get('/filter-appointments', [AdminController::class, 'view_list_appointment'])->middleware(['auth', 'admin'])->name('filter-appointments');
 Route::get('/appointment/{id}', [AdminController::class, 'show_appointment'])->middleware(['auth', 'admin'])->name('show-appointmet');
 Route::get('/show_user_info/{id}', [AdminController::class, 'show_user_info'])->middleware(['auth', 'admin'])->name('show_user_info');
 
