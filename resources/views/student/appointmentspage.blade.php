@@ -9,6 +9,10 @@
     <div class="mt-10"></div>
     @csrf
 
+    <div>
+        try
+    </div>
+    
     @if (Session::has('success'))
     <x-success :message="Session::get('success')" />
     @elseif(Session::has('warning'))
