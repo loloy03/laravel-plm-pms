@@ -30,12 +30,31 @@ class AdminController extends Controller
     }
 
 
-    public function view_list_appointment()
+    public function view_list_appointment(Request $request)
     {
-        //join the appointment table with users table
-        $appointments = Appointment::join('users', 'appointments.appointment_assigned_doctor_id', '=', 'users.id')
-            ->select('appointments.*', 'users.*')
-            ->get();
+        $filter = $request->input('filter');
+
+        // Get all appointments based on the filter
+        $appointmentsQuery = Appointment::join('users', 'appointments.appointment_assigned_doctor_id', '=', 'users.id')
+            ->select('appointments.*', 'users.*');
+
+        if ($filter === 'available') {
+            // Filter available appointments (where the date of the appointment is less than the start date)
+            $appointmentsQuery->whereDate('appointments.appointment_start_date', '>', now());
+        } elseif ($filter === 'past') {
+            // Filter past appointments (where the date of the appointment is greater than the end date)
+            $appointmentsQuery->whereDate('appointments.appointment_end_date', '<', now());
+        } elseif ($filter === 'ongoing') {
+            // Filter ongoing appointments (where the current date is between start and end date)
+            $currentDate = now();
+            $appointmentsQuery->whereDate('appointments.appointment_start_date', '<=', $currentDate)
+                ->whereDate('appointments.appointment_end_date', '>=', $currentDate);
+        } else {
+            // Default behavior: Display available appointments if no filter is specified
+            $appointmentsQuery->whereDate('appointments.appointment_start_date', '>', now());
+        }
+
+        $appointments = $appointmentsQuery->get();
 
         // Retrieve the count of appointment requests for each appointment
         $patients_confirmed_count = [];
@@ -43,13 +62,15 @@ class AdminController extends Controller
             $id = $appointment->appointment_id;
             $appointment_requests = AppointmentRequest::join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.appointment_id')
                 ->where('appointment_requests.appointment_id', $id)
-                ->where('appointment_requests.status','confirmed')
+                ->where('appointment_requests.status', 'confirmed')
                 ->get();
             $patients_confirmed_count[$id] = $appointment_requests->count();
         }
 
         return view('admin.view-list-appointment-page', compact('appointments', 'patients_confirmed_count'));
     }
+
+
 
     public function show_appointment($id)
     {
