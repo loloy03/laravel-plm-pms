@@ -18,7 +18,7 @@
 
     <div class="flex justify-center items-center">
         <div class="w-full mx-10 my-2 bg-white shadow-md overflow-hidden rounded-lg hover:bg-red-100 transition-all duration-300 ease-in-out">
-            <a href="{{ $patients_confirmed_count[$appointment->appointment_id] <= $appointment->appointment_allowed_patients ? route('availappointments', ['id' => $appointment->appointment_id]) : 'javascript:void(0)' }}" class="block px-10 py-5 {{ $patients_confirmed_count[$appointment->appointment_id] <= $appointment->appointment_allowed_patients ? '' : 'pointer-events-none opacity-50' }}">
+            <a href="{{ $patients_confirmed_count[$appointment->appointment_id] < $appointment->appointment_allowed_patients ? route('availappointments', ['id' => $appointment->appointment_id]) : 'javascript:void(0)' }}" class="block px-10 py-5 {{ $patients_confirmed_count[$appointment->appointment_id] < $appointment->appointment_allowed_patients ? '' : 'pointer-events-none opacity-50' }}">
                 <div class="p-3 text-gray-900 ">
                     <div class="md:flex flex-row ">
                         <div class="basis-1/2 flex justify-center items-center text-6xl xs:mb-5 sm:mb-0">
@@ -33,7 +33,7 @@
                             <div class="font-bold text-3xl">
                                 {{ $appointment->appointment_title }}
                             </div>
-                            @if ($patients_confirmed_count[$appointment->appointment_id] <= $appointment->appointment_allowed_patients)
+                            @if ($patients_confirmed_count[$appointment->appointment_id] < $appointment->appointment_allowed_patients)
                                 <div class="text-sm border border-green-300 bg-green-300 w-min p-1 rounded-2xl px-2">
                                     Available
                                 </div>
