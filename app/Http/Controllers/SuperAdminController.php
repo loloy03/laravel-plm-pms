@@ -47,7 +47,8 @@ class SuperAdminController extends Controller
             $accounts->orderBy($defaultSort);
         }
 
-        $accounts = $accounts->get();
+        // Paginate the results
+        $accounts = $accounts->paginate(10); // Change '10' to the number of items per page you want to display
 
         return view('super-admin.account-list', compact('accounts'));
     }
