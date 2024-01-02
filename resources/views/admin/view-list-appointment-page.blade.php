@@ -11,7 +11,13 @@
 
 
 
-    <div class="mt-10 flex justify-center">
+    <div class="my-10 flex justify-center text-sm">
+        <form method="GET" action="{{ route('filter-appointments') }}">
+            <input type="hidden" name="filter" value="ongoing">
+            <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mx-2">
+                Ongoing Appointments
+            </button>
+        </form>
         <form method="GET" action="{{ route('filter-appointments') }}">
             <input type="hidden" name="filter" value="available">
             <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-2">
@@ -23,13 +29,6 @@
             <input type="hidden" name="filter" value="past">
             <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mx-2">
                 Past Appointments
-            </button>
-        </form>
-
-        <form method="GET" action="{{ route('filter-appointments') }}">
-            <input type="hidden" name="filter" value="ongoing">
-            <button type="submit" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mx-2">
-                Ongoing Appointments
             </button>
         </form>
     </div>
@@ -61,7 +60,7 @@
                                 Appointment ID: {{ $appointment->appointment_id }}
                             </div>
                         </div>
-                        <div class="basis-1/2">
+                        <div class="basis-1/2 text-sm md:text-base">
                             <!--changing the time format on the view--->
                             <div class="flex">
                                 <div class="font-bold">

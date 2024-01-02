@@ -52,6 +52,7 @@
                         <div class="font-bold">Confirmed Patients:&nbsp;</div>
                         <div>{{ $confirmed_requests_count }}</div>
                         <button id="toggleButton" class="bg-green-500 text-white rounded-lg hover:bg-green-300 mx-5 px-5 text-sm">View Patients</button>
+                        <button id="downloadPDFButton" class="bg-blue-500 text-white rounded-lg hover:bg-blue-300 mx-5 px-5 text-sm">Download Confirmed Patients as PDF</button>
                     </div>
                     @endif
                     @foreach ($confirmed_requests as $accepted_request)
@@ -88,6 +89,13 @@
             elementsToToggle.forEach(function(element) {
                 element.classList.toggle('hidden');
             });
+        });
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        const downloadPDFButton = document.getElementById('downloadPDFButton');
+
+        downloadPDFButton.addEventListener('click', function() {
+            window.location.href = "{{ route('download_pdf', ['id' => $appointment->appointment_id]) }}";
         });
     });
 </script>
