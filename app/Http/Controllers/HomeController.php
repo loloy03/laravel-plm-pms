@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class HomeController extends Controller
 {
@@ -18,7 +19,7 @@ class HomeController extends Controller
                 return view ('student.dashboard');
             }
             elseif ($user_type=='super-admin') {
-                return view('super-admin.dashboard');
+                return Redirect::route('create-account');
             }
             elseif ($user_type=='admin') {
                 return view('admin.dashboard');
