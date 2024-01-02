@@ -11,14 +11,15 @@
                 </div>
 
                 <!-- Navigation Links -->
+
+
+                <!-- For Patient only -->
+                @if(Auth::user()->user_type === 'student')
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
-                
-                <!-- For Patient only -->
-                @if(Auth::user()->user_type === 'student')
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('medicalhistory')" :active="request()->routeIs('medicalhistory')">
                         {{ __('Medical History') }}
@@ -35,7 +36,7 @@
                 @endif
 
                 <!-- For Super Admin only --->
-                
+
                 @if(Auth::user()->user_type === 'super-admin')
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('account-list')" :active="request()->routeIs('account-list')">

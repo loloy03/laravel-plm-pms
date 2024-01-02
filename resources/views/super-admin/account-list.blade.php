@@ -72,4 +72,7 @@
         </div>
     </div>
     @endforeach
+    <div class="p-10">
+        {{ $accounts->links() }}
+    </div>
 </x-app-layout>
