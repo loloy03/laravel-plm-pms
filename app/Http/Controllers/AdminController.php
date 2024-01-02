@@ -10,9 +10,29 @@ use App\Models\AppointmentRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use PDF;
 
 class AdminController extends Controller
 {
+    public function downloadPDF($id)
+    {
+        $appointment = Appointment::join('users', 'appointments.appointment_assigned_doctor_id', '=', 'users.id')->find($id);
+
+        if (!$appointment) {
+            return redirect()->route('error');
+        }
+
+        $confirmed_requests = AppointmentRequest::join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.appointment_id')
+            ->join('users', 'appointment_requests.user_id', '=', 'users.id')
+            ->where('appointment_requests.appointment_id', $id)
+            ->where('appointment_requests.status', '=', 'confirmed')
+            ->get();
+
+        $pdf = \PDF::loadView('admin.pdf', compact('confirmed_requests', 'appointment'));
+
+        return $pdf->download('confirmed_patients.pdf');
+    }
+
     public function create_appointment_page()
     {
         $doctors = User::where('user_type', 'doctor')->get();
