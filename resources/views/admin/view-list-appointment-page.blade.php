@@ -60,7 +60,7 @@
                                 Appointment ID: {{ $appointment->appointment_id }}
                             </div>
                         </div>
-                        <div class="basis-1/2">
+                        <div class="basis-1/2 text-sm md:text-base">
                             <!--changing the time format on the view--->
                             <div class="flex">
                                 <div class="font-bold">
