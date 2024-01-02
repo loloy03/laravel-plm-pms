@@ -22,7 +22,7 @@ class HomeController extends Controller
                 return Redirect::route('create-account');
             }
             elseif ($user_type=='admin') {
-                return view('admin.dashboard');
+                return Redirect::route('create-appointment-page');
             }
         }
     }
