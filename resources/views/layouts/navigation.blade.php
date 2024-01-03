@@ -34,6 +34,14 @@
                 </div>
                 @endif
 
+                @if(Auth::user()->user_type === 'student')
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('user_requested_appointments')" :active="request()->routeIs('user_requested_appointments')">
+                        {{ __('User Appointments') }}
+                    </x-nav-link>
+                </div>
+                @endif
+
                 <!-- For Super Admin only --->
                 
                 @if(Auth::user()->user_type === 'super-admin')
