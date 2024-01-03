@@ -24,4 +24,9 @@ class AppointmentRequest extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function appointment()
+    {
+        return $this->belongsTo(Appointment::class, 'appointment_id');
+    }
 }

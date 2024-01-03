@@ -85,6 +85,20 @@ class PatientController extends Controller
         return view('student.appointmentsreqs', compact('appointment'));
     }
 
+    public function user_appointment($id)
+    {
+        $appointment = Appointment::join('users', 'appointments.appointment_assigned_doctor_id', '=', 'users.id')
+            ->select('appointments.*', 'users.*')
+            ->where('appointments.appointment_id', $id)
+            ->first();
+
+        if (!$appointment) {
+            return redirect()->route('error');
+        }
+
+        return view('student.userappointments', compact('appointment'));
+    }
+
     public function confirmAppointment(Request $request, $appointment_request_id)
     {
 
@@ -121,12 +135,15 @@ class PatientController extends Controller
     }
 
 
-    public function getUserDetails()
+    public function userRequestedAppointments()
     {
-        $user = auth()->user();
-        return response()->json([
-            'first_name' => $user->first_name,
-            'last_name' => $user->last_name,
-        ]);
+        $user = Auth::user();
+            
+        // Retrieve all appointments requested by the user
+        $userRequestedAppointments = AppointmentRequest::where('user_id', $user->id)
+            ->with(['appointment', 'appointment.assignedDoctor']) // Load appointment and doctor details
+            ->get();
+
+        return view('student.user_requested_appointments', compact('userRequestedAppointments'));
     }
 }

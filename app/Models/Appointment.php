@@ -17,4 +17,9 @@ class Appointment extends Model
         'appointment_allowed_patients',
         'appointment_assigned_doctor_id'
     ];
+    
+    public function assignedDoctor()
+    {
+        return $this->belongsTo(User::class, 'appointment_assigned_doctor_id');
+    }
 }
