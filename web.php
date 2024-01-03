@@ -42,19 +42,17 @@ route::get('/view-list-appointment-page', [AdminController::class, 'view_list_ap
 Route::get('/filter-appointments', [AdminController::class, 'view_list_appointment'])->middleware(['auth', 'admin'])->name('filter-appointments');
 Route::get('/appointment/{id}', [AdminController::class, 'show_appointment'])->middleware(['auth', 'admin'])->name('show-appointmet');
 Route::get('/show_user_info/{id}', [AdminController::class, 'show_user_info'])->middleware(['auth', 'admin'])->name('show_user_info');
-Route::get('/appointments/{id}/download-pdf', [AdminController::class, 'downloadPDF'])->name('download_pdf');
-
 
 //for patient only
 route::get('/medicalhistory', [PatientController::class, 'medical_history'])->middleware(['auth', 'student'])->name('medicalhistory');
 route::post('/medicalhistoryadd', [PatientController::class, 'medical_historyadd'])->middleware(['auth', 'student'])->name('medicalhistoryadd');
 route::get('/appointmentspage', [PatientController::class, 'available_appointments'])->middleware(['auth', 'student','check.medical.history'])->name('appointmentspage');
 route::get('/availappointment/{id}', [PatientController::class, 'avail_appointment'])->middleware(['auth', 'student'])->name('availappointments');
-route::get('/userappointment/{id}', [PatientController::class, 'user_appointment'])->middleware(['auth', 'student'])->name('userappointments');
-Route::post('patient/appointments/confirm/{appointment_request_id}', [PatientController::class, 'confirmAppointment'])->name('patient.appointments.confirm');
-Route::get('/user_requested_appointments', [PatientController::class, 'userRequestedAppointments'])->middleware(['auth', 'student','check.medical.history'])->name('user_requested_appointments');
+Route::post('patient/appointments/confirm/{appointment_request_id}', [PatientController::class, 'confirmAppointment'])
+    ->name('patient.appointments.confirm');
+// Route::get('/user/details', [UserController::class, 'getUserDetails'])->name('user.details');
 
-//others
+//othersS
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
