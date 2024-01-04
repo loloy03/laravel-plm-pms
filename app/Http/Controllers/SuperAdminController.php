@@ -60,11 +60,11 @@ class SuperAdminController extends Controller
         $accounts = User::where(function ($queryBuilder) use ($query) {
             $queryBuilder->where('last_name', 'like', '%' . $query . '%')
                 ->orWhere('first_name', 'like', '%' . $query . '%');
-        })->get();
+        })->paginate(10); 
 
-        // Return the accounts to the view.
         return view('super-admin.account-list', compact('accounts'));
     }
+
     public function account_delete($id)
     {
         // Find the user by ID
