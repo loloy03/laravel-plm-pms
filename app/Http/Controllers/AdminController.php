@@ -7,6 +7,7 @@ use App\Mail\AcceptedScheduleInfo;
 use App\Mail\DeclinedScheduleInfo;
 use App\Models\Appointment;
 use App\Models\AppointmentRequest;
+use App\Models\MedicalHistory;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -40,13 +41,14 @@ class AdminController extends Controller
         return view('admin.create-appointment-page', compact('doctors'));
     }
 
-    public function show_user_info($id)
+    public function show_patient_info($id)
     {
-        $user_info = User::find($id);
+        $patient_info = MedicalHistory::join('users', 'med_history.user_id', '=', 'users.id')
+            ->where('med_history.user_id', $id)
+            ->first();
 
-        // dd($user_info);
 
-        return view('admin.show-user-info', compact('user_info'));
+        return view('admin.show-patient-info', compact('patient_info'));
     }
 
 
