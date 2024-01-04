@@ -70,7 +70,7 @@ class AdminController extends Controller
 
     public function view_list_appointment(Request $request)
     {
-        $filter = $request->input('filter');
+        $filter = $request->input('filter', 'available');
 
         // Get all appointments based on the filter
         $appointmentsQuery = Appointment::join('users', 'appointments.appointment_assigned_doctor_id', '=', 'users.id')
