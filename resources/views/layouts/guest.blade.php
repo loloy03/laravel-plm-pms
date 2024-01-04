@@ -21,9 +21,7 @@
                 <div class="flex">
                     <!-- Logo -->
                     <div class="shrink-0 flex items-center">
-                        <a href="{{ route('home') }}">
-                            <x-application-logo />
-                        </a>
+                        <x-application-logo />
                     </div>
 
                     <div class="flex text-right">

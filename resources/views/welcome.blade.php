@@ -12,8 +12,13 @@
                 The PLM-University Health Services under the direct supervision of the Vice-President for Administration is in charge of providing health services and emergency treatment for all university constituents.
             </div>
             <x-primary-button>
-                {{ __('Select Appointment') }}
+                <a href="login">
+                    {{ __('Select Appointment') }}
+                </a>
             </x-primary-button>
+        </div>
+        <div class="basis-1/2 p-10 opacity-40">
+            <img src="{{ asset('images/plm_logo.png') }}" >
         </div>
     </div>
     <div class="md:flex flex-row justify-center items-center">
