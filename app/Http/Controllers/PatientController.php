@@ -149,16 +149,19 @@ class PatientController extends Controller
 
     public function user_appointment($id)
     {
-        $appointment = Appointment::join('users', 'appointments.appointment_assigned_doctor_id', '=', 'users.id')
-            ->select('appointments.*', 'users.*')
-            ->where('appointments.appointment_id', $id)
+        $appointment = Appointment::with(['assignedDoctor', 'appointmentRequests'])
+            ->where('appointment_id', $id)
             ->first();
 
         if (!$appointment) {
             return redirect()->route('error');
         }
 
-        return view('student.userappointments', compact('appointment'));
+        // Fetching a specific AppointmentRequest based on some criteria, for instance, the logged-in user
+        $user = Auth::user();
+        $specificAppointmentRequest = $appointment->appointmentRequests()->where('user_id', $user->id)->first();
+
+        return view('student.userappointments', compact('appointment', 'specificAppointmentRequest'));
     }
 
     public function confirmAppointment(Request $request, $appointment_request_id)
@@ -205,7 +208,7 @@ class PatientController extends Controller
         $userRequestedAppointments = AppointmentRequest::where('user_id', $user->id)
             ->with(['appointment', 'appointment.assignedDoctor']) // Load appointment and doctor details
             ->get();
-
-        return view('student.user_requested_appointments', compact('userRequestedAppointments'));
+        
+            return view('student.user_requested_appointments', compact('userRequestedAppointments'));
     }
 }

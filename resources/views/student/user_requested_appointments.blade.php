@@ -7,6 +7,12 @@
     </x-slot>
 
     <div class="mt-10"></div>
+    @if($userRequestedAppointments->isEmpty())
+        <div class="text-center text-gray-900">
+            <p>You have no appointments.</p>
+        </div>
+    @else
+
     @foreach($userRequestedAppointments as $appointmentRequest)
     @php
             $end_date = \Carbon\Carbon::parse($appointmentRequest->appointment->appointment_end_date);
@@ -66,4 +72,5 @@
     </div>
 
     @endforeach
+@endif
 </x-app-layout>

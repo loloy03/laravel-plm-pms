@@ -18,6 +18,11 @@ class Appointment extends Model
         'appointment_assigned_doctor_id'
     ];
     
+    public function appointmentRequests()
+    {
+        return $this->hasMany(AppointmentRequest::class, 'appointment_id');
+    }
+
     public function assignedDoctor()
     {
         return $this->belongsTo(User::class, 'appointment_assigned_doctor_id');
