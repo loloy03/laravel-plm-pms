@@ -41,7 +41,7 @@ route::post('/store-appointment', [AdminController::class, 'store_appointment'])
 route::get('/view-list-appointment-page', [AdminController::class, 'view_list_appointment'])->middleware(['auth', 'admin'])->name('view-list-appointment-page');
 Route::get('/filter-appointments', [AdminController::class, 'view_list_appointment'])->middleware(['auth', 'admin'])->name('filter-appointments');
 Route::get('/appointment/{id}', [AdminController::class, 'show_appointment'])->middleware(['auth', 'admin'])->name('show-appointmet');
-Route::get('/show_user_info/{id}', [AdminController::class, 'show_user_info'])->middleware(['auth', 'admin'])->name('show_user_info');
+Route::get('/show_user_info/{id}', [AdminController::class, 'show_patient_info'])->middleware(['auth', 'admin'])->name('show_patient_info');
 Route::get('/appointments/{id}/download-pdf', [AdminController::class, 'downloadPDF'])->name('download_pdf');
 
 
