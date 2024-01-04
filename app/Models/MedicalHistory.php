@@ -32,7 +32,6 @@ class MedicalHistory extends Model
         'sexdys',
         'pregnancy',
         'others',
-        'remarks',
         'user_id'
     ];
     public function user()

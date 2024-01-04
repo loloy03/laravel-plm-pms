@@ -56,7 +56,6 @@ class PatientController extends Controller
                 'sexdys' => $request->input('sexdys'),
                 'pregnancy' => $request->input('pregnancy'),
                 'others' => $request->input('others'),
-                'remarks' => $request->input('remarks'),
 
                 // Add other fields here as per your schema
             ]);
@@ -88,7 +87,6 @@ class PatientController extends Controller
             $data['sexdys'] = $request->input('sexdys');
             $data['pregnancy'] = $request->input('pregnancy');
             $data['others'] = $request->input('others');
-            $data['remarks'] = $request->input('remarks');
             $newMedicalHistory = MedicalHistory::create($data);
         }
 
