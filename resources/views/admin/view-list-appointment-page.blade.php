@@ -6,11 +6,10 @@
         </h2>
     </x-slot>
 
-    <div class="mt-10"></div>
-
-
-
-
+    @if (Session::has('success'))
+    <x-success :message="Session::get('success')" />
+    @endif
+    
     <div class="my-10 flex justify-center text-sm">
         <form method="GET" action="{{ route('filter-appointments') }}">
             <input type="hidden" name="filter" value="ongoing">
@@ -32,10 +31,6 @@
             </button>
         </form>
     </div>
-
-
-
-
 
     @foreach ($appointments as $appointment)
 

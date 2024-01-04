@@ -48,6 +48,29 @@ class AdminController extends Controller
         );
     }
 
+    public function appointment_delete($id)
+    {
+        $appointment = Appointment::find($id);
+        if ($appointment) {
+            $appointment->delete();
+        }
+        return redirect()->route('view-list-appointment-page')->with('success', 'Appointment Deleted Successfully');
+    }
+
+    public function appointment_show_edit($id)
+    {
+        $appointment = Appointment::find($id);
+
+        $assigned_doctor = Appointment::join('users', 'appointments.appointment_assigned_doctor_id', '=', 'users.id')
+            ->where('appointment_id', $id)
+            ->first(); // Retrieve a single instance
+
+        $doctors = User::where('user_type', 'doctor')
+            ->whereNotIn('id', [$assigned_doctor->id]) // Exclude the assigned doctor
+            ->get();
+
+        return view('admin.appointment-show-edit', compact('appointment', 'doctors', 'assigned_doctor'));
+    }
 
 
     public function create_appointment_page()
@@ -70,7 +93,7 @@ class AdminController extends Controller
 
     public function view_list_appointment(Request $request)
     {
-        $filter = $request->input('filter');
+        $filter = $request->input('filter', 'available');
 
         // Get all appointments based on the filter
         $appointmentsQuery = Appointment::join('users', 'appointments.appointment_assigned_doctor_id', '=', 'users.id')
@@ -105,7 +128,7 @@ class AdminController extends Controller
             $patients_confirmed_count[$id] = $appointment_requests->count();
         }
 
-        return view('admin.view-list-appointment-page', compact('appointments', 'patients_confirmed_count','filter'));
+        return view('admin.view-list-appointment-page', compact('appointments', 'patients_confirmed_count', 'filter'));
     }
 
 
@@ -135,6 +158,29 @@ class AdminController extends Controller
         return view('admin.show-appointment', compact('appointment', 'appointment_requests', 'confirmed_requests_count', 'appointment_requests_count', 'confirmed_requests'));
     }
 
+    public function edit_appointment(Request $request, $id)
+    {
+        // Validate the input
+        $request->validate([
+            'appointment_title' => ['sometimes', 'string', 'max:255'],
+            'appointment_description' => ['sometimes', 'string', 'max:255'],
+            'appointment_start_date' => ['sometimes', 'date'],
+            'appointment_end_date' => ['sometimes', 'date'],
+            'appointment_allowed_patients' => ['sometimes'],
+            'appointment_assigned_doctor_id' => ['sometimes'],
+        ]);
+
+        // Find the appointment by ID
+        $appointment = Appointment::findOrFail($id);
+
+        // Update appointment attributes with filled values
+        $appointment->update($request->all());
+
+        return redirect()->back()->with('success', 'Appointment Edited Successfully');
+    }
+
+
+
 
 
     public function store_appointment(Request $request)
@@ -159,6 +205,6 @@ class AdminController extends Controller
             "appointment_assigned_doctor_id" => $request->appointment_assigned_doctor_id,
         ]);
 
-        return redirect()->back()->with('success', 'Appointed Created Successfully');
+        return redirect()->back()->with('success', 'Appointment Created Successfully');
     }
 }
