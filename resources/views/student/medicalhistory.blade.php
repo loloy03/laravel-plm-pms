@@ -174,13 +174,6 @@
             </div>
         </div>
 
-            <!-- 'remarks' Field -->
-            <div class="mt-4 col-span-3">
-                <x-input-label for="remarks" :value="__('Doctors Remarks')" />
-                <x-text-input id="remarks" class="block mt-1 w-full" type="text" name="remarks" :value="$hasMedicalHistory ? $existingMedicalHistory->remarks : old('remarks')" autocomplete="remarks" readonly />
-                <x-input-error :messages="$errors->get('remarks')" class="mt-2" />
-            </div>
-
             <div class="mt-4 col-span-3 flex justify-center">
             @if($hasMedicalHistory)
                 <!-- Update Medical History Button -->
