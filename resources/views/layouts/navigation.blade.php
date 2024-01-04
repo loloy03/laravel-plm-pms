@@ -94,7 +94,7 @@
                             @endif
                             @if(Auth::user()->user_type === 'student')
                             <div class="text-xsm bg-green-500 text-white rounded-lg p-1 ">
-                                Student
+                                Patient
                             </div>
                             @endif
                             @if(Auth::user()->user_type === 'doctor')
