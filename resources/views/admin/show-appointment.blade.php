@@ -10,9 +10,23 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <div class="mb-3 flex">
-                        <div class="font-bold">Appointment ID: &nbsp;</div>
-                        <div>{{ $appointment->appointment_id }}</div>
+                    <div class="flex">
+                        <div class="basis-3/4">
+                            <div class=" flex">
+                                <div class="font-bold">Appointment ID: &nbsp;</div>
+                                <div>{{ $appointment->appointment_id }}</div>
+                            </div>
+                        </div>
+                        <div class="basis-1/4 flex justify-end items-center">
+                            <form action="{{ route('account-show', $appointment->id) }}" method="get">
+                                @csrf
+                                <button><i class="fa-regular fa-pen-to-square mr-3 text-md hover:text-yellow-500 transition ease-to-ease"></i></button>
+                            </form>
+                            <form action="{{ route('appointment-delete', $appointment->appointment_id) }}" method="POST">
+                                @csrf
+                                <button><i class="fa-solid fa-trash text-md text-red-500 hover:text-red-600 transition ease-to-ease"></i></button>
+                            </form>
+                        </div>
                     </div>
                     <div class="text-5xl font-bold mb-3">
                         {{ $appointment->appointment_title }}

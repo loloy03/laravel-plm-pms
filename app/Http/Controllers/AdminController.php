@@ -48,6 +48,15 @@ class AdminController extends Controller
         );
     }
 
+    public function appointment_delete($id)
+    {
+        $appointment = Appointment::find($id);
+        if ($appointment) {
+            $appointment->delete();
+        }
+        return redirect()->route('view-list-appointment-page')->with('success', 'Appointment Deleted Successfully');
+    }
+
 
 
     public function create_appointment_page()
@@ -105,7 +114,7 @@ class AdminController extends Controller
             $patients_confirmed_count[$id] = $appointment_requests->count();
         }
 
-        return view('admin.view-list-appointment-page', compact('appointments', 'patients_confirmed_count','filter'));
+        return view('admin.view-list-appointment-page', compact('appointments', 'patients_confirmed_count', 'filter'));
     }
 
 
