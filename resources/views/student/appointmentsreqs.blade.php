@@ -101,5 +101,10 @@
             document.body.appendChild(form);
             form.submit();
         });
+
+        cancelBookBtn.addEventListener('click', function() {
+            console.log('No button clicked');
+            bookModal.classList.add('hidden');
+        });
     </script>
 </x-app-layout>
