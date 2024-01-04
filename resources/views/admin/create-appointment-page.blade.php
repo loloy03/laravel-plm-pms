@@ -6,14 +6,13 @@
     </x-slot>
     <div class="flex justify-center items-center">
         <div class="w-full m-6 bg-white shadow-md overflow-hidden sm:rounded-lg">
+            @if (Session::has('success'))
+            <x-success :message="Session::get('success')" />
+            @endif
             <div class="md:flex flex-row">
                 <div class="basis-1/2 m-5">
                     <form method="POST" action="{{ route('store-appointment') }}">
                         @csrf
-
-                        @if (Session::has('success'))
-                        <x-success :message="Session::get('success')" />
-                        @endif
 
                         <!-- Appointment Title -->
                         <div class="mt-4">

@@ -18,7 +18,7 @@
                             </div>
                         </div>
                         <div class="basis-1/4 flex justify-end items-center">
-                            <form action="{{ route('account-show', $appointment->id) }}" method="get">
+                            <form action="{{ route('appointment-show-edit', $appointment->appointment_id) }}" method="GET">
                                 @csrf
                                 <button><i class="fa-regular fa-pen-to-square mr-3 text-md hover:text-yellow-500 transition ease-to-ease"></i></button>
                             </form>
