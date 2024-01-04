@@ -5,13 +5,16 @@
             {{ __('View Available Appointments') }}
         </h2>
     </x-slot>
+        <form method="GET" action="{{ route('filter-appointments') }}">
+            <input type="hidden" name="filter" value="available">
+        </form>
 
     <div class="mt-10"></div>
     @csrf
     @if (Session::has('success'))
     <x-success :message="Session::get('success')" />
     @elseif(Session::has('warning'))
-    <x-success :message="Session::get('warning')" />
+    <x-warning :message="Session::get('warning')" />
     @endif
     @foreach ($appointments as $appointment)
 
