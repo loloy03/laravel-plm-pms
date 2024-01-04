@@ -12,9 +12,11 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use PDF;
+use DateTime;
 
 class AdminController extends Controller
 {
+
     public function downloadPDF($id)
     {
         $appointment = Appointment::join('users', 'appointments.appointment_assigned_doctor_id', '=', 'users.id')->find($id);
@@ -29,10 +31,24 @@ class AdminController extends Controller
             ->where('appointment_requests.status', '=', 'confirmed')
             ->get();
 
+        $startDateTime = new DateTime($appointment->appointment_start_date);
+        $endDateTime = new DateTime($appointment->appointment_end_date);
+
+        $formattedStartDate = $startDateTime->format('F d, Y, h:i A');
+        $formattedEndDate = $endDateTime->format('F d, Y, h:i A');
+
+        $pdfFileName = $appointment->appointment_title . '_' . $formattedStartDate . '_' . $formattedEndDate . '_patients.pdf';
         $pdf = \PDF::loadView('admin.pdf', compact('confirmed_requests', 'appointment'));
 
-        return $pdf->download('confirmed_patients.pdf');
+        return response()->streamDownload(
+            function () use ($pdf) {
+                echo $pdf->output();
+            },
+            $pdfFileName
+        );
     }
+
+
 
     public function create_appointment_page()
     {
