@@ -105,7 +105,7 @@ class AdminController extends Controller
             $patients_confirmed_count[$id] = $appointment_requests->count();
         }
 
-        return view('admin.view-list-appointment-page', compact('appointments', 'patients_confirmed_count'));
+        return view('admin.view-list-appointment-page', compact('appointments', 'patients_confirmed_count','filter'));
     }
 
 
