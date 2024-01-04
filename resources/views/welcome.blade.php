@@ -17,6 +17,9 @@
                 </a>
             </x-primary-button>
         </div>
+        <div class="basis-1/2 p-10 opacity-40">
+            <img src="{{ asset('images/plm_logo.png') }}" >
+        </div>
     </div>
     <div class="md:flex flex-row justify-center items-center">
         <div class="basis-1/2 justify-right">
