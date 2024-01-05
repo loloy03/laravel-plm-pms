@@ -208,6 +208,8 @@ class PatientController extends Controller
         $userRequestedAppointments = AppointmentRequest::where('user_id', $user->id)
             ->with(['appointment', 'appointment.assignedDoctor']) // Load appointment and doctor details
             ->get();
+
+            
         
             return view('student.user_requested_appointments', compact('userRequestedAppointments'));
     }

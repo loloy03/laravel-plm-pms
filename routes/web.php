@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SuperAdminController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\DoctorController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -42,11 +43,13 @@ route::get('/view-list-appointment-page', [AdminController::class, 'view_list_ap
 Route::get('/filter-appointments', [AdminController::class, 'view_list_appointment'])->middleware(['auth', 'admin'])->name('filter-appointments');
 Route::get('/appointment/{id}', [AdminController::class, 'show_appointment'])->middleware(['auth', 'admin'])->name('show-appointmet');
 Route::get('/show_user_info/{id}', [AdminController::class, 'show_patient_info'])->middleware(['auth', 'admin'])->name('show_patient_info');
-Route::post('/appointment/delete/{id}', [AdminController::class, 'appointment_delete'])->middleware(['auth', 'admin'])->name('appointment-delete');
-Route::get('/appointment/show-edit/{id}', [AdminController::class, 'appointment_show_edit'])->middleware(['auth', 'admin'])->name('appointment-show-edit');
-route::post('/edit-appointment/{id}', [AdminController::class, 'edit_appointment'])->middleware(['auth', 'admin'])->name('edit-appointment');
 Route::get('/appointments/{id}/download-pdf', [AdminController::class, 'downloadPDF'])->name('download_pdf');
 
+//for doctor only
+route::get('/view-appointments-page', [DoctorController::class, 'view_appointments'])->middleware(['auth', 'doctor'])->name('view-appointments-page');
+route::get('/view-medical-history-page', [DoctorController::class, 'view_medical_history'])->middleware(['auth', 'doctor'])->name('view-medical-history-page');
+route::get('/doctor/appointment/{id}', [DoctorController::class, 'show_appointments'])->middleware(['auth', 'doctor'])->name('show-appointments-page');
+route::get('/doctor/show_user_info/{id}', [DoctorController::class, 'show_patient_info'])->middleware(['auth', 'doctor'])->name('doctor.show_patient_info');
 
 //for patient only
 route::get('/medicalhistory', [PatientController::class, 'medical_history'])->middleware(['auth', 'student'])->name('medicalhistory');

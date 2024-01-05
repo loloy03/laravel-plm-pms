@@ -18,6 +18,10 @@ class HomeController extends Controller
             if ($user_type=='student') {
                 return view ('student.dashboard');
             }
+        
+            elseif ($user_type=='doctor') {
+            return view ('doctor.dashboard');
+            }
             elseif ($user_type=='super-admin') {
                 return Redirect::route('create-account');
             }

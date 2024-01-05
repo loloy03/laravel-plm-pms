@@ -10,7 +10,21 @@
 
                 <!-- Navigation Links -->
 
+                @if(Auth::user()->user_type === 'doctor')
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
+                        {{ __('Dashboard') }}
+                    </x-nav-link>
+                </div>
+                @endif
 
+                @if(Auth::user()->user_type === 'doctor')
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('view-appointments-page')" :active="request()->routeIs('view-appointments-page')">
+                        {{ __('View Appointments') }}
+                    </x-nav-link>
+                </div>
+                @endif
                 <!-- For Patient only -->
                 @if(Auth::user()->user_type === 'student')
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
