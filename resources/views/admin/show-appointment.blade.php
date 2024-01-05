@@ -70,7 +70,7 @@
                     </div>
                     @endif
                     @foreach ($confirmed_requests as $accepted_request)
-                    <a href="{{ route('admin.show_patient_info', ['id' => $accepted_request->id]) }}">
+                    <a href="{{ route('show_patient_info', ['id' => $accepted_request->id]) }}">
                         <div class="mt-5 toggle-element hidden ">
                             <div class="p-5 bg-green-50 rounded-lg flex flex-row hover:bg-green-100 transition ease-in-out duration-150">
                                 <div class="basis-1/4 flex justify-center items-center text-xl">

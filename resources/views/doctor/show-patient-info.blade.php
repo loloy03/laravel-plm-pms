@@ -7,11 +7,14 @@
     </x-slot>
     <div class="flex justify-center items-center">
         <div class="w-full m-6 bg-white shadow-md overflow-hidden sm:rounded-lg">
+            @if (Session::has('success'))
+            <x-success :message="Session::get('success')" />
+            @endif
             <div class="md:flex flex-row">
                 <!-- First Column -->
                 <div class="basis-1/2 m-5">
                     <!-- First Name -->
-               
+
                     <div class="mt-4">
                         <x-input-label :value="__('First Name')" />
                         <x-text-input id="f_name" class="block mt-1 w-full" :value="$patient_info->first_name" disabled />
@@ -144,21 +147,20 @@
                         <x-input-label for="others" :value="__('Other Health Information (if there are other health information)')" />
                         <x-text-input class="block mt-1 w-full" :value="$patient_info->others" disabled />
                     </div>
-
-                    <!-- 'remarks' Field -->
-                    <div class="mt-4">
-                        <x-input-label for="remarks" :value="__('Doctor\'s Remarks')" />
-                        <x-text-input class="block mt-1 w-full" :value="$appointmentsreqs->remarks ?? ''" />
-                    </div>
-
-
-
-                    <!-- 'others' Field -->
-                   
-
-                
-                    
                 </div>
+                <!-- 'remarks' Field -->
+            </div>
+            <div class="m-4">
+                <form action="{{ route('edit-remarks', ['id' => $patient_remarks->appointment_request_id])}}" method="post">
+                    @csrf
+                    <x-input-label for="remarks" :value="__('Doctor\'s Remarks')" />
+                    <x-text-input class="block mt-1 w-full" :value="$patient_remarks->remarks" id="remarks" name="remarks" />
+                    <div class="flex items-center justify-center my-4">
+                        <x-primary-button class="ml-4">
+                            {{ __('Edit Remarks') }}
+                        </x-primary-button>
+                    </div>
+                </form>
             </div>
         </div>
 </x-app-layout>

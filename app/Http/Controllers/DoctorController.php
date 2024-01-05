@@ -23,9 +23,9 @@ class DoctorController extends Controller
         return view('doctor.show-user-info', compact('user_info'));
     }
 
-    
 
- 
+
+
     public function view_appointments()
     {
         //join the appointment table with users table
@@ -56,10 +56,10 @@ class DoctorController extends Controller
 
         $result['medical_history'] = DB::table('med_history')
             ->get();
-    
+
         return view('doctor.view-medical-history-page', compact('result'));
     }
-    
+
     public function show_appointments($id)
     {
         $appointment = Appointment::join('users', 'appointments.appointment_assigned_doctor_id', '=', 'users.id')
@@ -91,10 +91,27 @@ class DoctorController extends Controller
             ->where('med_history.user_id', $id)
             ->first();
 
+        $patient_remarks = AppointmentRequest::join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.appointment_id')
+            ->where('appointment_requests.user_id', $id)
+            ->first();
 
-        return view('doctor.show-patient-info', compact('patient_info'));
+
+
+        return view('doctor.show-patient-info', compact('patient_info', 'patient_remarks'));
     }
 
+    public function edit_remarks(Request $request, $id)
+    {
 
-    
+        // Validate the input
+        $request->validate([
+            'remarks' => ['sometimes', 'string', 'max:255'],
+        ]);
+
+        $remarks = AppointmentRequest::findOrFail($id);
+        
+        $remarks->update($request->all());
+
+        return redirect()->back()->with('success', 'Appointment Edited Successfully');
+    }
 }
