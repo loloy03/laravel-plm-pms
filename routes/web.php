@@ -43,6 +43,9 @@ route::get('/view-list-appointment-page', [AdminController::class, 'view_list_ap
 Route::get('/filter-appointments', [AdminController::class, 'view_list_appointment'])->middleware(['auth', 'admin'])->name('filter-appointments');
 Route::get('/appointment/{id}', [AdminController::class, 'show_appointment'])->middleware(['auth', 'admin'])->name('show-appointmet');
 Route::get('/show_user_info/{id}', [AdminController::class, 'show_patient_info'])->middleware(['auth', 'admin'])->name('show_patient_info');
+Route::get('/appointment/show-edit/{id}', [AdminController::class, 'appointment_show_edit'])->middleware(['auth', 'admin'])->name('appointment-show-edit');
+Route::post('/appointment/edit/{id}', [AdminController::class, 'edit_appointment'])->middleware(['auth', 'admin'])->name('edit-appointment');
+Route::post('/appointment/delete/{id}', [AdminController::class, 'appointment_delete'])->middleware(['auth', 'admin'])->name('appointment-delete');
 Route::get('/appointments/{id}/download-pdf', [AdminController::class, 'downloadPDF'])->name('download_pdf');
 
 //for doctor only
