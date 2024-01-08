@@ -18,13 +18,17 @@
                         <img src="doctor_profile_image.jpg" alt="Doctor Profile" class="w-16 h-16 rounded-full mr-4">
                         <div>
                             <h2 class="text-xl font-semibold">
-                                {{ __("Dr. ") . auth()->user()->name }}
+                            {{ __("Dr. ") . auth()->user()->first_name . ' ' . auth()->user()->last_name }}
                             </h2>
+                            
                             <!-- You can access other user details like specialty, contact info, etc., using auth()->user() -->
-                            <p class="text-gray-600">{{ __("Specialty: Cardiologist") }}</p>
+                            <p class="text-gray-600">{{ __("Doctor") }}</p>
+                            <p class="text-gray-600">{{ __("Dr. ") . auth()->user()->email}}</p>
                             <!-- Add more details like contact info, address, etc. -->
                         </div>
                     </div>
+
+                    
                 </div>
             </div>
 

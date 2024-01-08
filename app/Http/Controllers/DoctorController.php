@@ -26,8 +26,9 @@ class DoctorController extends Controller
 
 
 
-    public function view_appointments()
+    public function view_appointments(Request $request)
     {
+     
         //join the appointment table with users table
         $appointments = Appointment::join('users', 'appointments.appointment_assigned_doctor_id', '=', 'users.id')
             ->select('appointments.*', 'users.*')
@@ -44,8 +45,9 @@ class DoctorController extends Controller
             $appointment_requests_count[$id] = $appointment_requests->count();
         }
 
-        return view('doctor.view-appointments-page', compact('appointments', 'appointment_requests_count'));
+        return view('doctor.view-appointments-page', compact('appointments','appointment_requests_count'));
     }
+    
     public function view_medical_history()
     {
         // Join the medical_history table with the users table

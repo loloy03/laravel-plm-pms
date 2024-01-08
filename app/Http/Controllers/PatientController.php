@@ -9,6 +9,10 @@ use App\Models\MedicalHistory;
 use App\Models\Appointment;
 use App\Models\AppointmentRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AcceptedScheduleInfo;
+
+
 
 class PatientController extends Controller
 {
@@ -172,6 +176,8 @@ class PatientController extends Controller
 
         $appointmentId = $request->input('appointment_id');
 
+        $appointment_info = Appointment::where('appointment_id',$appointmentId)->first();
+
         // Check if the user has already requested this appointment
         $existingRequest = AppointmentRequest::where('user_id', $user->id)
             ->where('appointment_id', $appointmentId)
@@ -188,8 +194,19 @@ class PatientController extends Controller
             $appointmentRequest->last_name = $user->last_name ?? '';
             $appointmentRequest->save();
 
+            //storing the data for mail purpose
+            $mail_data = [
+                'appointment_request_id' => $appointmentId,
+                'appointment_start_date' => $appointment_info->appointment_start_date,
+                'appointment_end_date' =>  $appointment_info->appointment_end_date,
+                'last_name' =>  $user->last_name,
+                'email' => $user->email,
+            ];
+
             // Log a success message
             Log::info('Appointment requested successfully');
+
+            Mail::to($user->email)->send(new AcceptedScheduleInfo($mail_data));
 
             // Redirect back with success message
             return redirect()->route('appointmentspage')->with('success', 'Appointment requested successfully');
