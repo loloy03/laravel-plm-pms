@@ -73,7 +73,7 @@
                             </div>
                             <!-- End of Swiper -->
                             <div class="mt-4 book-appointment">
-                                <p class="text-lg font-semibold">Pamantasan ng Lungsod ng Maynila UHS</p>
+                                <p class="text-lg font-semibold text-red-700">Pamantasan ng Lungsod ng Maynila UHS</p>
                                 <a href="{{ route('appointmentspage') }}" class="inline-block px-6 py-3 mt-4 bg-blue-500 text-white font-bold rounded-lg shadow-md hover:bg-blue-700">Book an appointment</a>
                             </div>
                         </div>

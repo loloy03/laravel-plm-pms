@@ -17,6 +17,7 @@ class AppointmentRequest extends Model
         'user_id',
         'appointment_id',
         'remarks',
+        'appstatus',
     ];
 
     public $timestamps = false;  // Disable automatic timestamps

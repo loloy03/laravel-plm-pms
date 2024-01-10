@@ -15,9 +15,8 @@
 
     @foreach($userRequestedAppointments as $appointmentRequest)
     @php
-            $end_date = \Carbon\Carbon::parse($appointmentRequest->appointment->appointment_end_date);
-            $status = $end_date->isPast() ? 'PastDue' : 'Ongoing';
-            $statusColorClass = $end_date->isPast() ? 'bg-red-300' : 'bg-green-300';
+                $appstatus = $appointmentRequest->appstatus === 'complete' ? 'Completed' : ($appointmentRequest->appstatus === 'incomplete' ? 'Incomplete' : ($appointmentRequest->appstatus ? 'Ongoing' : 'Ongoing'));
+                $statusColorClass = $appointmentRequest->appstatus === 'complete' ? 'bg-green-300' : ($appointmentRequest->appstatus === 'incomplete' ? 'bg-red-300' : ($appointmentRequest->appstatus === null ? 'bg-blue-300' : 'bg-gray-300'));
     @endphp
 
     <div class="flex justify-center items-center">
@@ -33,7 +32,7 @@
                                     {{ $appointmentRequest->appointment->appointment_title }}
                                 </div>
                                 <div class="text-sm border {{ $statusColorClass }} w-min p-1 rounded-2xl px-2">
-                                    {{ $status }}
+                                    {{ $appstatus }}
                                 </div>
                             </div>
                             <div class="basis-1/2">
