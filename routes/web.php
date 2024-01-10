@@ -52,7 +52,7 @@ Route::get('/appointments/{id}/download-pdf', [AdminController::class, 'download
 route::get('/view-appointments-page', [DoctorController::class, 'view_appointments'])->middleware(['auth', 'doctor'])->name('view-appointments-page');
 route::get('/view-medical-history-page', [DoctorController::class, 'view_medical_history'])->middleware(['auth', 'doctor'])->name('view-medical-history-page');
 route::get('/doctor/appointment/{id}', [DoctorController::class, 'show_appointments'])->middleware(['auth', 'doctor'])->name('show-appointments-page');
-route::get('/doctor/show_user_info/{id}', [DoctorController::class, 'show_patient_info'])->middleware(['auth', 'doctor'])->name('doctor.show_patient_info');
+route::get('/doctor/show_user_info/{id}/{appointment_id}', [DoctorController::class, 'show_patient_info'])->middleware(['auth', 'doctor'])->name('doctor.show_patient_info');
 route::post('/edit-remarks/{id}', [DoctorController::class, 'edit_remarks'])->middleware(['auth', 'doctor'])->name('edit-remarks');
 
 //for patient only

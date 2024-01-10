@@ -10,8 +10,9 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm rounded-lg">
                 <div class="p-6 text-gray-900">
-                
+
                     <div class="text-5xl font-bold mb-3">
+                        {{ $appointment->appointment_id }}
                         {{ $appointment->appointment_title }}
                     </div>
                     <div class="mb-3">
@@ -49,11 +50,12 @@
                         <div class="font-bold">Scheduled Patients:&nbsp;</div>
                         <div>{{ $confirmed_requests_count }}</div>
                         <button id="toggleButton" class="bg-green-500 text-white rounded-lg hover:bg-green-300 mx-5 px-5 text-sm">View Scheduled Patients</button>
-                       
+
                     </div>
                     @endif
                     @foreach ($confirmed_requests as $accepted_request)
-                    <a href="{{ route('doctor.show_patient_info', ['id' => $accepted_request->id]) }}">
+                    <a href="{{ route('doctor.show_patient_info', ['id' => $accepted_request->id, 'appointment_id' => $appointment->appointment_id]) }}">
+
                         <div class="mt-5 toggle-element hidden ">
                             <div class="p-5 bg-green-50 rounded-lg flex flex-row hover:bg-green-100 transition ease-in-out duration-150">
                                 <div class="basis-1/4 flex justify-center items-center text-xl">
@@ -61,9 +63,9 @@
                                 </div>
                                 <div class="basis-3/4">
                                     <div class="text-sm">
-                                       Patient Name: {{$accepted_request->first_name}} {{$accepted_request->last_name}}
+                                        Patient Name: {{$accepted_request->first_name}} {{$accepted_request->last_name}}
                                     </div>
-                                   
+
                                 </div>
                             </div>
                         </div>
@@ -85,7 +87,7 @@
                 element.classList.toggle('hidden');
             });
         });
-  
-       
+
+
     });
 </script>
