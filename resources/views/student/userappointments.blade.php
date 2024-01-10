@@ -43,8 +43,7 @@
                         <div class="font-bold">End Date:&nbsp;</div>
                         <div>{{ \Carbon\Carbon::parse($appointment->appointment_end_date)->format('F d, Y, h:i A') }}</div>
                     </div>
-
-                    <!-- Add Book Now Button -->
+                    
                     <div class="mb-3">
                     @if($specificAppointmentRequest)
                         Remarks: {{ $specificAppointmentRequest->remarks }}
