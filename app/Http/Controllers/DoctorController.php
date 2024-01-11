@@ -118,7 +118,7 @@ class DoctorController extends Controller
         // Validate the input
         $request->validate([
             'remarks' => ['sometimes', 'string', 'max:255'],
-            'attachment' => ['sometimes', 'string', 'max:255'],
+            'attachment' => ['sometimes', 'file', 'mimes:pdf', 'max:2048'], // Adjust max file size as needed
             'appstatus' => ['sometimes', 'string', 'max:255'],
         ]);
 
@@ -126,6 +126,15 @@ class DoctorController extends Controller
 
         $remarks->update($request->all());
 
+        if ($request->hasFile('attachment')) {
+            $file = $request->file('attachment');
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            $file->storeAs('attachments', $fileName, 'public'); // Assuming you have a public disk configured
+            $remarks->attachment = $fileName;
+        }
+    
+        $remarks->update($request->except('attachment'));
+    
         return redirect()->back()->with('success', 'Appointment Edited Successfully');
     }
 }

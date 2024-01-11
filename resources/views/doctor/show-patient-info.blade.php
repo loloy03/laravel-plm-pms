@@ -151,7 +151,7 @@
                 <!-- 'remarks' Field -->
             </div>
             <div class="m-4">
-    <form action="{{ route('edit-remarks', ['id' => $patient_remarks->appointment_request_id]) }}" method="post">
+    <form action="{{ route('edit-remarks', ['id' => $patient_remarks->appointment_request_id]) }}" method="post" method="post" enctype="multipart/form-data">
         @csrf
 
         <!-- Doctor's Remarks -->
@@ -161,10 +161,11 @@
         </div>
    <!-- File Upload -->
    <div class="mt-4">
-            <x-input-label for="attachment" :value="__('Upload Attachment (PDF)')" />
-            <input type="file" id="attachment" name="attachment" class="block mt-1 w-full" accept=".pdf" />
-            <x-input-error :messages="$errors->get('attachment')" class="mt-2" />
-        </div>
+    <x-input-label for="attachment" :value="__('Upload Attachment (PDF)')" />
+    <input type="file" id="attachment" name="attachment" class="block mt-1 w-full" accept=".pdf" />
+    <x-input-error :messages="$errors->get('attachment')" class="mt-2" />
+</div>
+
         <!-- Appointment Status Dropdown -->
         <div class="mt-4">
     <x-input-label for="appstatus" :value="__('Appointment Status')" />
