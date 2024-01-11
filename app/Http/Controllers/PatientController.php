@@ -10,6 +10,7 @@ use App\Models\Appointment;
 use App\Models\AppointmentRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use App\Mail\AcceptedScheduleInfo;
 
 
