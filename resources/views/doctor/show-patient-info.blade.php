@@ -166,6 +166,7 @@
     <x-input-error :messages="$errors->get('attachment')" class="mt-2" />
 </div>
 
+
         <!-- Appointment Status Dropdown -->
         <div class="mt-4">
     <x-input-label for="appstatus" :value="__('Appointment Status')" />
