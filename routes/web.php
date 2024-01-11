@@ -63,6 +63,7 @@ route::get('/availappointment/{id}', [PatientController::class, 'avail_appointme
 route::get('/userappointment/{id}', [PatientController::class, 'user_appointment'])->middleware(['auth', 'student'])->name('userappointments');
 Route::post('patient/appointments/confirm/{appointment_request_id}', [PatientController::class, 'confirmAppointment'])->name('patient.appointments.confirm');
 Route::get('/user_requested_appointments', [PatientController::class, 'userRequestedAppointments'])->middleware(['auth', 'student','check.medical.history'])->name('user_requested_appointments');
+Route::get('/attachments/{filename}', 'YourController@viewAttachment')->name('view-attachment');
 
 //others
 Route::middleware('auth')->group(function () {

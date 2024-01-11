@@ -230,4 +230,15 @@ class PatientController extends Controller
         
             return view('student.user_requested_appointments', compact('userRequestedAppointments'));
     }
+
+    public function viewAttachment($filename)
+    {
+        $path = storage_path('app/public/attachments/' . $filename);
+
+        if (!Storage::disk('public')->exists('attachments/' . $filename)) {
+            abort(404);
+        }
+
+        return response()->file($path);
+    }
 }
