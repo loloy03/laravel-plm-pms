@@ -151,16 +151,46 @@
                 <!-- 'remarks' Field -->
             </div>
             <div class="m-4">
-                <form action="{{ route('edit-remarks', ['id' => $patient_remarks->appointment_request_id])}}" method="post">
-                    @csrf
-                    <x-input-label for="remarks" :value="__('Doctor\'s Remarks')" />
-                    <x-text-input class="block mt-1 w-full" :value="$patient_remarks->remarks" id="remarks" name="remarks" />
-                    <div class="flex items-center justify-center my-4">
-                        <x-primary-button class="ml-4">
-                            {{ __('Edit Remarks') }}
-                        </x-primary-button>
-                    </div>
-                </form>
-            </div>
+    <form action="{{ route('edit-remarks', ['id' => $patient_remarks->appointment_request_id]) }}" method="post">
+        @csrf
+
+        <!-- Doctor's Remarks -->
+        <div class="mt-4">
+            <x-input-label for="remarks" :value="__('Doctor\'s Remarks')" />
+            <x-text-input class="block mt-1 w-full" :value="$patient_remarks->remarks" id="remarks" name="remarks" />
+        </div>
+   <!-- File Upload -->
+   <div class="mt-4">
+            <x-input-label for="attachment" :value="__('Upload Attachment (PDF)')" />
+            <input type="file" id="attachment" name="attachment" class="block mt-1 w-full" accept=".pdf" />
+            <x-input-error :messages="$errors->get('attachment')" class="mt-2" />
+        </div>
+        <!-- Appointment Status Dropdown -->
+        <div class="mt-4">
+    <x-input-label for="appstatus" :value="__('Appointment Status')" />
+    <select id="appstatus" name="appstatus" class="block mt-1 w-full" required autocomplete="appstatus">
+    <option value="">Choose Status</option>
+        <option value="complete" @if(optional($appstatus)->appstatus === 'complete') selected @endif>Completed</option>
+        <option value="incomplete" @if(optional($appstatus)->appstatus === 'incomplete') selected @endif>Incomplete</option>
+    
+    </select>
+    <x-input-error :messages="$errors->get('appstatus')" class="mt-2" />
+</div>
+
+
+
+
+
+
+
+        <div class="flex items-center justify-center my-4">
+            <x-primary-button class="ml-4">
+                {{ __('Edit Remarks') }}
+            </x-primary-button>
+        </div>
+    </form>
+</div>
+
+
         </div>
 </x-app-layout>

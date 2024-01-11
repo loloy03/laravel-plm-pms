@@ -92,15 +92,25 @@ class DoctorController extends Controller
         $patient_info = MedicalHistory::join('users', 'med_history.user_id', '=', 'users.id')
             ->where('med_history.user_id', $id)
             ->first();
-
+    
         $patient_remarks = AppointmentRequest::join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.appointment_id')
             ->where('appointment_requests.user_id', $id)->where('appointments.appointment_id', $appointment_id)
             ->first();
 
-
-
-        return view('doctor.show-patient-info', compact('patient_info', 'patient_remarks'));
+        $attachment = AppointmentRequest::join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.appointment_id')
+            ->where('appointment_requests.user_id', $id)->where('appointments.appointment_id', $appointment_id)
+            ->first();
+        
+    
+        $appstatus = AppointmentRequest::join('appointments', 'appointment_requests.appointment_id', '=', 'appointments.appointment_id')
+            ->where('appointment_requests.user_id', $id)->where('appointments.appointment_id', $appointment_id)
+            ->first();
+        
+        
+    
+        return view('doctor.show-patient-info', compact('patient_info', 'patient_remarks', 'attachment','appstatus'));
     }
+    
 
     public function edit_remarks(Request $request, $id)
     {
@@ -108,6 +118,8 @@ class DoctorController extends Controller
         // Validate the input
         $request->validate([
             'remarks' => ['sometimes', 'string', 'max:255'],
+            'attachment' => ['sometimes', 'string', 'max:255'],
+            'appstatus' => ['sometimes', 'string', 'max:255'],
         ]);
 
         $remarks = AppointmentRequest::findOrFail($id);
