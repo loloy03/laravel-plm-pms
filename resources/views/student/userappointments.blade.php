@@ -54,7 +54,7 @@
 
                     @if ($specificAppointmentRequest->attachment)
                     <form method="get" action="{{ route('view-attachment', ['filename' => $specificAppointmentRequest->attachment]) }}" target="_blank">
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">View Attachment</button>
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Doctor Attachment</button>
                     </form>
                 @endif
                 </div>
